@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { ThemeProvider } from "@/components/theme-provider"
 
 import './App.css'
