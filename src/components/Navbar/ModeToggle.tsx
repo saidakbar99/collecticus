@@ -1,9 +1,8 @@
 import { Moon, Sun } from "lucide-react"
-
 import { useTheme } from "@/components/theme-provider"
 import { Switch } from '@/components/ui/switch'
 
-export function ModeToggle() {
+const ModeToggle = () => {
   const { setTheme, theme } = useTheme()
 
   const handleClick = (theme: string) => {
@@ -22,3 +21,5 @@ export function ModeToggle() {
     </div>
   )
 }
+
+export default ModeToggle

@@ -1,12 +1,12 @@
 import { ThemeProvider } from "@/components/theme-provider"
 
 import './App.css'
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar/Navbar'
 
 const App = () => {
 
   return (
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
             <Navbar />
         </ThemeProvider>
   )
