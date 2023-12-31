@@ -1,19 +1,16 @@
-import { createBrowserRouter, RouteObject } from "react-router-dom"
-import App from './App'
+import { RouteObject } from "react-router-dom"
+import Home from "./components/Home"
 import SignForm from "./components/SignForm"
-import { UserAuthForm } from "./components/UserAuthForm"
 
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: App(),
+    element: <Home />,
   },
   {
     path: '/auth',
-    element: <UserAuthForm />
+    element: <SignForm />
   }
 ]
 
-const router = createBrowserRouter(routes)
-
-export default router
+export default routes
