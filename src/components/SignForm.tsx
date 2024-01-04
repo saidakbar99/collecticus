@@ -1,8 +1,10 @@
-// import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 export default function SignForm() {
+    const [isLoading, setIsLoading] = useState(false)
     return (
         <div className="h-[600px] mx-auto flex flex-col justify-center space-y-6">
             <div className="flex flex-col space-y-2 text-center">
@@ -24,7 +26,7 @@ export default function SignForm() {
                                 autoCapitalize="none"
                                 autoComplete="email"
                                 autoCorrect="off"
-                                disabled={true}
+                                disabled={isLoading}
                             />
                             <Input
                                 id="name"
@@ -33,7 +35,7 @@ export default function SignForm() {
                                 autoCapitalize="none"
                                 autoComplete="name"
                                 autoCorrect="off"
-                                disabled={true}
+                                disabled={isLoading}
                             />
                             <Input
                                 id="password"
@@ -41,15 +43,21 @@ export default function SignForm() {
                                 type="password"
                                 autoCapitalize="none"
                                 autoComplete="password"
-                                disabled={true}
+                                disabled={isLoading}
                             />
                         </div>
-                        <Button disabled={true}>
+                        <Button disabled={isLoading}>
                             {/* {isLoading && (
                             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                             )} */}
                             Sign In
                         </Button>
+                        <p className="mt-2">
+                            Don't have an account yet? {' '}
+                            <NavLink to="/auth" className='underline text-primary'>
+                                Sign up
+                            </NavLink>
+                        </p>
                     </div>
                 </form>
                 <div className="relative">
@@ -62,13 +70,13 @@ export default function SignForm() {
                     </span>
                     </div>
                 </div>
-                <Button variant="outline" type="button" disabled={true}>
+                <Button variant="outline" type="button" disabled={isLoading}>
                     {/* {isLoading ? (
                     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
                     <Icons.gitHub className="mr-2 h-4 w-4" />
                     )}{" "} */}
-                    Github
+                    Google
                 </Button>
             </div>
         </div>

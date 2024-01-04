@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from '../ui/button'
 
 const NavbarActivityButtons = () => {
     //! get from redux
@@ -9,12 +10,12 @@ const NavbarActivityButtons = () => {
         return (
             <div className='flex items-center ml-12'>
                 <Link to='/create'>
-                    <button
+                    <Button
                         type='button'
-                        className='mr-8 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700'
+                        className='mr-8'
                     >
                         Create Collection
-                    </button>
+                    </Button>
                 </Link>
                 <Avatar>
                     <AvatarImage src="https://github.com/shadcn.png" />
@@ -25,12 +26,12 @@ const NavbarActivityButtons = () => {
     } else {
         return (
             <Link to='/auth'>
-                <button
+                <Button
                     type='button'
-                    className='ml-12 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700'
+                    className='ml-12'
                 >
                     Login
-                </button>
+                </Button>
             </Link>
         )
     }

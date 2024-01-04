@@ -1,15 +1,25 @@
 import { RouteObject } from "react-router-dom"
-import Home from "./components/Home"
+// import AdminPage from "./components/AdminPage"
+import HomePage from "./components/HomePage"
 import SignForm from "./components/SignForm"
+import AdminPage from "./components/Table/page"
 
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <Home />,
+    element: <HomePage />,
   },
   {
     path: '/auth',
     element: <SignForm />
+  },
+  // {
+  //   path: '/admin',
+  //   element: <AdminPage />
+  // },
+  {
+    path: '/admin',
+    element: <AdminPage />
   }
 ]
 
