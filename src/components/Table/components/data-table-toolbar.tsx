@@ -35,21 +35,6 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
-      <Button>
-        Delete
-      </Button>
-      <Button>
-        make admin
-      </Button>
-      <Button>
-        undo admin
-      </Button>
-      <Button>
-        block
-      </Button>
-      <Button>
-        unblock
-      </Button>
     </div>
   )
 }

@@ -4,7 +4,9 @@ import ErrorPage from "./pages/ErrorPage"
 import HomePage from "./components/HomePage"
 import ItemPage from "./components/ItemPage"
 import SignForm from "./pages/SignForm"
-import AdminPage from "./components/Table/page"
+import AdminPage from "./components/Table/AdminPage"
+import CreatePostPage from "./pages/CreatePostPage"
+import ProfilePage from "./pages/ProfilePage"
 
 const routes: RouteObject[] = [
     {
@@ -28,9 +30,13 @@ const routes: RouteObject[] = [
         element: <ItemPage />
     },
     {
-        path: '*',
-        element: <ErrorPage />
-    }
+        path: '/create',
+        element: <CreatePostPage />
+    },
+    {
+        path: '/profile',
+        element: <ProfilePage />
+    },
 ]
 
 export default routes

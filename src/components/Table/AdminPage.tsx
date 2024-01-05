@@ -7,6 +7,8 @@ import { columns } from "./components/columns"
 import { DataTable } from "./components/data-table"
 // import { taskSchema } from "./data/schema"
 import UserService from '@/services/UserService'
+import AdminActivityButton from './components/AdminActivityMenu'
+// import MyLoader from '@/components/TableSkeleton'
 
 // async function getTasks() {
 //   // const data = await fs.readFile(
@@ -62,6 +64,9 @@ return (
     </div> */}
     <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex mt-12">
         <DataTable data={users} columns={columns} />
+        <AdminActivityButton />
+        {/* <MyLoader /> */}
+        {/* <TableSkeleton /> */}
     </div>
     </>
 )
