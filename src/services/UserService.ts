@@ -1,8 +1,10 @@
 import $api from "../http"
 
 export default class UserService {
-    static fetchUsers() {
-        return $api.get('/users')
+    static fetchUsers(token: string) {
+        return $api.get('/users', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
     }
 
     // static deleteUsers(selectedIds) {

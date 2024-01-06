@@ -13,7 +13,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-
 import {
   Table,
   TableBody,
@@ -24,7 +23,6 @@ import {
 } from "@/components/ui/table"
 
 import { DataTablePagination } from "./data-table-pagination"
-import { DataTableToolbar } from "./data-table-toolbar"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -64,10 +62,9 @@ export function DataTable<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
-  // console.log('>>>table', table?.getRowModel()?.rows[0]?.getVisibleCells()[1].column.columnDef.cell)
+
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 // import path from "path"
 // import { z } from "zod"
 
-import { columns } from "./components/columns"
+import { TableColumns } from "./components/TableColumns"
 import { DataTable } from "./components/data-table"
 // import { taskSchema } from "./data/schema"
 import UserService from '@/services/UserService'
@@ -29,45 +29,49 @@ import AdminActivityButton from './components/AdminActivityMenu'
 // }
 
 export default function TaskPage() {
-const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([])
 
-const getUsers = async () => {
-    try {
-        const response = await UserService.fetchUsers()
-        setUsers(response.data)
-    } catch (e) {
-        console.error('Error fetching users: ', e)
+    const token = localStorage.getItem('token')
+
+    const getUsers = async () => {
+        try {
+            if (token) {
+                const response = await UserService.fetchUsers(token)
+                setUsers(response.data)
+            }
+        } catch (e) {
+            console.error('Error fetching users: ', e)
+        }
     }
-}
 
-    useEffect(() => {
-        getUsers()
-    }, [])
+        useEffect(() => {
+            getUsers()
+        }, [])
 
-return (
-    <>
-    {/* <div className="md:hidden">
-        <img
-        src="/examples/tasks-light.png"
-        width={1280}
-        height={998}
-        alt="Playground"
-        className="block dark:hidden"
-        />
-        <img
-        src="/examples/tasks-dark.png"
-        width={1280}
-        height={998}
-        alt="Playground"
-        className="hidden dark:block"
-        />
-    </div> */}
-    <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex mt-12">
-        <DataTable data={users} columns={columns} />
-        <AdminActivityButton />
-        {/* <MyLoader /> */}
-        {/* <TableSkeleton /> */}
-    </div>
-    </>
-)
+    return (
+        <>
+        {/* <div className="md:hidden">
+            <img
+            src="/examples/tasks-light.png"
+            width={1280}
+            height={998}
+            alt="Playground"
+            className="block dark:hidden"
+            />
+            <img
+            src="/examples/tasks-dark.png"
+            width={1280}
+            height={998}
+            alt="Playground"
+            className="hidden dark:block"
+            />
+        </div> */}
+        <div className="hidden h-full flex-1 flex-col space-y-8 px-8 pt-6 md:flex mt-[72px]">
+            <DataTable data={users} columns={TableColumns} />
+            <AdminActivityButton />
+            {/* <MyLoader /> */}
+            {/* <TableSkeleton /> */}
+        </div>
+        </>
+    )
 }

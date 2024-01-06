@@ -5,7 +5,7 @@ import { UserAvatar } from './UserAvatar'
 
 const NavbarActivityButtons = () => {
     //! get from redux
-    const isAuth = true
+    const isAuth = false
 
     if (isAuth) {
         return (

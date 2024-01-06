@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { useAppSelector } from "@/hooks/redux"
+// import { useAppSelector } from "@/hooks/redux"
 import AuthService from '../services/AuthService'
 // import { useAppDispatch } from "@/hooks/redux"
 
@@ -63,6 +63,7 @@ export default function SignForm() {
         try {
             const response = await AuthService.login(username, password)
             console.log('>>>', response)
+            localStorage.setItem('token', response.data.accessToken)
             // dispatch(setUser)
             switch (response.status) {
                 case 200:
