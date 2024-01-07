@@ -44,9 +44,46 @@ export default function TaskPage() {
         }
     }
 
-        useEffect(() => {
-            getUsers()
-        }, [])
+    // const deleteUser = async () => {
+    //     try {
+    //         await UserService.deleteUsers(ids)
+
+    //         if (isCheck.includes(store.user.id)) {
+    //             logout()
+    //         }
+
+    //         getUsers()
+    //     } catch (error) {
+    //         console.error('Error removing users:', error)
+    //     }
+    // }
+
+    // const blockUser = async () => {
+    //     try {
+    //         await UserService.blockUsers(ids)
+
+    //         if (isCheck.includes(store.user.id)) {
+    //             logout()
+    //         }
+
+    //         getUsers()
+    //     } catch (error) {
+    //       console.error('Error removing users:', error)
+    //     }
+    // }
+
+    // const unblockUser = async () => {
+    //     try {
+    //         await UserService.unblockUsers(ids)
+    //         getUsers()
+    //     } catch (error) {
+    //       console.error('Error removing users:', error)
+    //     }
+    // }
+
+    useEffect(() => {
+        getUsers()
+    }, [])
 
     return (
         <>

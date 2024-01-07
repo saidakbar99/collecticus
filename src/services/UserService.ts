@@ -7,15 +7,15 @@ export default class UserService {
         })
     }
 
-    // static deleteUsers(selectedIds) {
-    //     return $api.post('/delete', { selectedIds })
-    // }
+    static deleteUsers(selectedIds: string[]) {
+        return $api.post('/delete', { selectedIds })
+    }
 
-    // static blockUsers(selectedIds) {
-    //     return $api.post('/block', { selectedIds })
-    // }
+    static blockUsers(selectedIds: string[]) {
+        return $api.post('/block', { selectedIds })
+    }
 
-    // static unblockUsers(selectedIds) {
-    //     return $api.post('/unblock', { selectedIds })
-    // }
+    static unblockUsers(selectedIds: string[]) {
+        return $api.post('/unblock', { selectedIds })
+    }
 }

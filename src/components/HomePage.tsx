@@ -36,10 +36,8 @@ export default function HomePage() {
                                 <ScrollArea>
                                     <div className="flex space-x-4 pb-4 cursor-pointer">
                                         {listenNowAlbums.map((collection) => (
-                                            <>
-                                            {/* {console.log('>>>', collection)} */}
                                             <AlbumArtwork
-                                                key={collection.name}
+                                                key={Math.random()}
                                                 album={collection}
                                                 className="w-[250px]"
                                                 aspectRatio="portrait"
@@ -47,7 +45,6 @@ export default function HomePage() {
                                                 height={330}
                                                 onClick={() => navigate(`/collection/${collection.name}`)}
                                             />
-                                            </>
                                         ))}
                                     </div>
                                     <ScrollBar orientation="horizontal" />
@@ -64,7 +61,7 @@ export default function HomePage() {
                                 <div className="flex space-x-4 pb-4">
                                     {madeForYouAlbums.map((album) => (
                                     <AlbumArtwork
-                                        key={album.name}
+                                        key={Math.random()}
                                         album={album}
                                         className="w-[150px]"
                                         aspectRatio="square"

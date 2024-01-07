@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/ui/theme-provider"
 import routes from './routes'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'

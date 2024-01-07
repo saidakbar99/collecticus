@@ -1,23 +1,17 @@
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 
+import { useAppSelector } from "@/hooks/redux"
 import { UserAvatar } from './UserAvatar'
 
 const NavbarActivityButtons = () => {
-    //! get from redux
-    const isAuth = false
+    const { isAuth } = useAppSelector(state => state.userReducer)
+    const test = useAppSelector(state => state.userReducer)
+    console.log('>>>', test)
 
     if (isAuth) {
         return (
             <div className='flex items-center ml-12'>
-                {/* <Link to='/create'>
-                    <Button
-                        type='button'
-                        className='mr-8'
-                    >
-                        Create Collection
-                    </Button>
-                </Link> */}
                 <UserAvatar />
             </div>
         )

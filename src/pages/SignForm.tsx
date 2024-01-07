@@ -3,16 +3,13 @@ import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-// import { useAppSelector } from "@/hooks/redux"
 import AuthService from '../services/AuthService'
-// import { useAppDispatch } from "@/hooks/redux"
+import { useAppDispatch } from "@/hooks/redux"
+import { saveUser } from "@/store/reducers/UserSlice"
 
 export default function SignForm() {
     const navigate = useNavigate()
-    // const dispatch = useAppDispatch()
-
-    // const {user} = useAppSelector(state => state.userReducer)
-    // console.log('>>>user', user)
+    const dispatch = useAppDispatch()
 
     const [isLoading, setIsLoading] = useState(false)
     const [isRegister, setIsRegister] = useState(false)
@@ -32,29 +29,19 @@ export default function SignForm() {
     }
 
     const handleRegister = async () => {
+        console.log('>>>', setIsLoading(false))
         const { username, password, email } = accountData
         try {
             const response = await AuthService.registration(username, password, email)
                 .then(async () => await AuthService.login(username, password))
-
-            sessionStorage.setItem('token', response.data.accessToken)
+            localStorage.setItem('token', response.data.accessToken)
 
             if (response.status === 200) {
-                navigate(`/user/:${123123}`)
+                navigate(`/profile`)
             }
-            // this.setAuth(true)
-            // this.setUser(response.data.user)
         } catch (e) {
-            // console.error(e.response?.data?.message)
+            console.error(e)
         }
-        // const newUser = await store.registration(username, password, email)
-        //     .then(async () => await store.login(username, password))
-
-        // if (newUser === 200) {
-        //     navigate('/user/:id')
-        // } else {
-        //     console.error('This email/username is already used')
-        // }
     }
 
     const handleLogin = async () => {
@@ -62,12 +49,13 @@ export default function SignForm() {
 
         try {
             const response = await AuthService.login(username, password)
-            console.log('>>>', response)
             localStorage.setItem('token', response.data.accessToken)
-            // dispatch(setUser)
+            console.log('>>>', response.data.user)
+            dispatch(saveUser(response.data.user))
+
             switch (response.status) {
                 case 200:
-                    navigate('/user/123123')
+                    navigate('/')
                     break
                 case 400:
                     console.error('This user is blocked')

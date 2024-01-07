@@ -1,5 +1,5 @@
 import { Moon, Sun } from "lucide-react"
-import { useTheme } from "@/components/theme-provider"
+import { useTheme } from "@/components/ui/theme-provider"
 import { Switch } from '@/components/ui/switch'
 
 const ModeToggle = () => {

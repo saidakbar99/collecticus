@@ -37,6 +37,10 @@ const routes: RouteObject[] = [
         path: '/profile',
         element: <ProfilePage />
     },
+    {
+        path: '*',
+        element: <ErrorPage />
+    },
 ]
 
 export default routes
