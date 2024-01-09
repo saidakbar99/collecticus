@@ -4,9 +4,11 @@ import ErrorPage from "./pages/ErrorPage"
 import HomePage from "./components/HomePage"
 import ItemPage from "./components/ItemPage"
 import SignForm from "./pages/SignForm"
-import AdminPage from "./components/Table/AdminPage"
-import CreatePostPage from "./pages/CreatePostPage"
+// import AdminPage from "./components/Table/AdminPage"
+// import CreatePostPage from "./pages/CreatePostPage"
+import SettingsProfilePage from './components/forms/page'
 import ProfilePage from "./pages/ProfilePage"
+import AdminTable from "./components/AdminTable"
 
 const routes: RouteObject[] = [
     {
@@ -19,7 +21,7 @@ const routes: RouteObject[] = [
     },
     {
         path: '/admin',
-        element: <AdminPage />
+        element: <AdminTable />
     },
     {
         path: '/collection/:id',
@@ -31,7 +33,7 @@ const routes: RouteObject[] = [
     },
     {
         path: '/create',
-        element: <CreatePostPage />
+        element: <SettingsProfilePage />
     },
     {
         path: '/profile',

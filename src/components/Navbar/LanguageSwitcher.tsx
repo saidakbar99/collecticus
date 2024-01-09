@@ -19,7 +19,7 @@ const LanguageSwitcher = () => {
     }
 
     return (
-        <DropdownMenu >
+        <DropdownMenu modal={false}>
             <DropdownMenuTrigger>{selectedLanguage}</DropdownMenuTrigger>
             <DropdownMenuContent>
                 <DropdownMenuItem onClick={() => handleClick('English')}>English</DropdownMenuItem>

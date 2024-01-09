@@ -38,12 +38,12 @@ export function UserAvatar() {
             dispatch(saveUser(''))
             navigate('/')
         } catch (e) {
-            console.log('>>>', e)
+            console.error('>>>', e)
         }
     }
 
     return (
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                 <Avatar className="h-9 w-9">

@@ -50,7 +50,6 @@ export default function SignForm() {
         try {
             const response = await AuthService.login(username, password)
             localStorage.setItem('token', response.data.accessToken)
-            console.log('>>>', response.data.user)
             dispatch(saveUser(response.data.user))
 
             switch (response.status) {
@@ -64,7 +63,7 @@ export default function SignForm() {
                     console.error('Wrong username/password')
             }
         } catch (e) {
-            console.log('>>>', e)
+            console.error('>>>', e)
         }
     }
 

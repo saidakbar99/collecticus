@@ -37,7 +37,6 @@ export const TableColumns: ColumnDef<User>[] = [
         ),
         cell: ({ row }) => <div className="w-[80px]">{row.getValue("username")}</div>,
         filterFn: (props) => {
-            console.log('>>>', props)
             return true
         }
     },
@@ -76,7 +75,6 @@ export const TableColumns: ColumnDef<User>[] = [
             )
         },
         filterFn: (row, id, value) => {
-            console.log('>>>', id, value)
             return value.includes(row.getValue(id))
         },
     },

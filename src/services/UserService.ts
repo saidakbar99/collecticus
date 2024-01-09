@@ -18,4 +18,12 @@ export default class UserService {
     static unblockUsers(selectedIds: string[]) {
         return $api.post('/unblock', { selectedIds })
     }
+
+    static makeAdmin(selectedIds: string[]) {
+        return $api.post('/admin', { selectedIds })
+    }
+
+    static unmakeAdmin(selectedIds: string[]) {
+        return $api.post('/unadmin', { selectedIds })
+    }
 }

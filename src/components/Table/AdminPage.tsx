@@ -7,7 +7,7 @@ import { TableColumns } from "./components/TableColumns"
 import { DataTable } from "./components/data-table"
 // import { taskSchema } from "./data/schema"
 import UserService from '@/services/UserService'
-import AdminActivityButton from './components/AdminActivityMenu'
+import AdminActivityButton from '../AdminActivityMenu'
 // import MyLoader from '@/components/TableSkeleton'
 
 // async function getTasks() {

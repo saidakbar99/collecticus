@@ -6,8 +6,7 @@ import { UserAvatar } from './UserAvatar'
 
 const NavbarActivityButtons = () => {
     const { isAuth } = useAppSelector(state => state.userReducer)
-    const test = useAppSelector(state => state.userReducer)
-    console.log('>>>', test)
+    // const test = useAppSelector(state => state.userReducer)
 
     if (isAuth) {
         return (
