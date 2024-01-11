@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
 import * as z from "zod"
-
+import { useNavigate } from 'react-router-dom'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import {
   Form,
   FormControl,
@@ -14,7 +15,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -26,7 +26,7 @@ import { Textarea } from "@/components/ui/textarea"
 
 import CollectionService from '@/services/CollectionService'
 import { useAppSelector } from '@/hooks/redux'
-import { useNavigate } from 'react-router-dom'
+import { TOPICS } from '@/config'
 
 const profileFormSchema = z.object({
   title: z
@@ -62,20 +62,28 @@ const defaultValues: Partial<ProfileFormValues> = {
   ],
 }
 
-export function ProfileForm() {
+export function CreateCollectionForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
     mode: "onChange",
   })
   const navigate = useNavigate()
-  const { user } = useAppSelector(state => state.userReducer)
+  const { user: {
+    username,
+    isAdmin,
+    id
+  } } = useAppSelector(state => state.userReducer)
 
   const [collectionData, setCollectionData] = useState({
     title: '',
     description: '',
-    topic: 'Books',
-    user: user.id
+    topic: '',
+    user: {
+      username: username,
+      isAdmin: isAdmin,
+      id: id
+    }
   })
 
 
@@ -93,15 +101,13 @@ export function ProfileForm() {
     }
   }
 
-  const topics = ['Books', 'Energy Drinks', 'Coins']
-
   return (
     <Form {...form}>
       <form className="space-y-8">
         <FormField
           control={form.control}
           name="title"
-          render={({ field }) => (
+          render={() => (
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
@@ -136,7 +142,7 @@ export function ProfileForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {topics.map((topic) => (
+                  {TOPICS.map((topic) => (
                     <SelectItem key={topic} value={topic}>{topic}</SelectItem>
                   ))}
                 </SelectContent>
@@ -152,7 +158,7 @@ export function ProfileForm() {
         <FormField
           control={form.control}
           name="description"
-          render={({ field }) => (
+          render={() => (
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>

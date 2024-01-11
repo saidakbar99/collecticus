@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card"
 
 import CollectionService, { Collections } from '@/services/CollectionService'
-import { Button } from './ui/button'
+import { Button } from '../components/ui/button'
 
 const CollectionPage = () => {
     const navigate = useNavigate()
@@ -39,7 +39,7 @@ const CollectionPage = () => {
                     <p className="text-4xl">{collection?.topic} Collection</p>
                     <p>{collection?.title}</p>
                     <p>{collection?.description}</p>
-                    <p>{collection?.user}</p>
+                    <p>{collection?.user.username}</p>
                     <Button>Add Item</Button>
                 </div>
                 <div className="">

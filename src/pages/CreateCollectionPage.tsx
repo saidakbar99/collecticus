@@ -1,10 +1,11 @@
 import { Separator } from "@/components/ui/separator"
-import { ProfileForm } from "./profile-form"
-import SettingsLayout from './layout'
 
-export default function SettingsProfilePage() {
+import { CreateCollectionForm } from "../components/CreateCollectionForm"
+import ProfileLayout from '../components/ProfileLayout'
+
+export default function CreateCollectionPage() {
   return (
-    <SettingsLayout>
+    <ProfileLayout>
       <div className="space-y-6">
         <div>
           <h3 className="text-lg font-medium">Profile</h3>
@@ -13,8 +14,8 @@ export default function SettingsProfilePage() {
           </p>
         </div>
         <Separator />
-        <ProfileForm />
+        <CreateCollectionForm />
       </div>
-    </SettingsLayout>
+    </ProfileLayout>
   )
 }

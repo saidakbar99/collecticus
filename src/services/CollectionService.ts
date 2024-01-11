@@ -1,11 +1,14 @@
 import $api from "../http"
 
 export interface Collections {
-    _id: string
     title: string
     description: string
     topic: string
-    user: string
+    user: {
+        username: string
+        id: string
+        isAdmin: boolean
+    }
 }
 
 export default class CollectionService {
@@ -15,6 +18,10 @@ export default class CollectionService {
 
     static fetchAllCollections() {
         return $api.get('/collections')
+    }
+
+    static fetchLastCollections() {
+        return $api.get('/collections-last')
     }
 
     static fetchOneCollection(collectionId: string) {

@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 
 import UserService from '@/services/UserService'
 import AdminActivityButton from '@/components/AdminActivityMenu'
-import { User } from './Table/components/schema'
+import { User } from '@/components/UserSchema'
 
 const AdminTable = () => {
     const [users, setUsers] = useState<User[]>([])
