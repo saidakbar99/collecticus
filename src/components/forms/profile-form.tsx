@@ -26,6 +26,7 @@ import { Textarea } from "@/components/ui/textarea"
 
 import CollectionService from '@/services/CollectionService'
 import { useAppSelector } from '@/hooks/redux'
+import { useNavigate } from 'react-router-dom'
 
 const profileFormSchema = z.object({
   title: z
@@ -67,6 +68,7 @@ export function ProfileForm() {
     defaultValues,
     mode: "onChange",
   })
+  const navigate = useNavigate()
   const { user } = useAppSelector(state => state.userReducer)
 
   const [collectionData, setCollectionData] = useState({
@@ -84,7 +86,8 @@ export function ProfileForm() {
 
   async function onSubmit() {
     try {
-      await CollectionService.createCollection(collectionData)
+      const response = await CollectionService.createCollection(collectionData)
+      navigate(`/collection/${response.data._id}`)
     } catch (e) {
       console.error(e)
     }

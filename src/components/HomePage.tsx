@@ -1,6 +1,4 @@
-// import { Metadata } from "next"
-// import Image from "next/image"
-// import { PlusCircledIcon } from "@radix-ui/react-icons"
+import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom"
 
 // import { Button } from '@/components/ui/button'
@@ -9,9 +7,33 @@ import { Separator } from "@/components/ui/separator"
 
 import { AlbumArtwork } from "./album-artwork"
 import { listenNowAlbums, madeForYouAlbums } from "./data/album"
+import CollectionService, { Collections } from '../services/CollectionService'
 
 export default function HomePage() {
     const navigate = useNavigate()
+    const [collections, setCollections] = useState<Collections[]>([])
+    const [biggestCollections, setBiggestCollections] = useState<Collections[]>([])
+
+    const getCollections = async () => {
+        try {
+            const response = await CollectionService.fetchAllCollections()
+            setCollections(response.data)
+            setBiggestCollections(response.data.slice(0,5))
+        } catch (e) {
+            console.error('Error fetching collections: ', e)
+        }
+    }
+
+    console.log('>>>', biggestCollections)
+
+    useEffect(() => {
+        getCollections()
+    }, [])
+
+    if (!collections.length) {
+        return <div></div>
+    }
+
     return (
         <div className="hidden md:block">
             <div className="mt-[72px]">
@@ -35,15 +57,15 @@ export default function HomePage() {
                             <div className="relative">
                                 <ScrollArea>
                                     <div className="flex space-x-4 pb-4 cursor-pointer">
-                                        {listenNowAlbums.map((collection) => (
+                                        {biggestCollections.map((collection, index) => (
                                             <AlbumArtwork
-                                                key={Math.random()}
-                                                album={collection}
+                                                key={index}
+                                                collection={collection}
                                                 className="w-[250px]"
                                                 aspectRatio="portrait"
                                                 width={250}
                                                 height={330}
-                                                onClick={() => navigate(`/collection/${collection.name}`)}
+                                                onClick={() => navigate(`/collection/${collection._id}`)}
                                             />
                                         ))}
                                     </div>
