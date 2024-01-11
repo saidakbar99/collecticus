@@ -3,7 +3,7 @@ export const TOPICS = ['Books', 'Energy Drinks', 'Coins']
 export const PROFILE_SIDEBAR_ITEMS = [
     {
       title: "Profile Settings",
-      href: "/profile",
+      href: "/profile/settings",
     },
     {
       title: "My Collections",
@@ -11,6 +11,6 @@ export const PROFILE_SIDEBAR_ITEMS = [
     },
     {
       title: "Create Collection",
-      href: "/create",
+      href: "/profile/create",
     },
 ]

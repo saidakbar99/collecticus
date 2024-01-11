@@ -1,11 +1,11 @@
 import { Separator } from "@/components/ui/separator"
 
-import { CreateCollectionForm } from "../components/CreateCollectionForm"
-import ProfileLayout from '../components/ProfileLayout'
+import { CreateCollectionForm } from "./CreateCollectionForm"
+// import ProfileLayout from '../components/ProfileLayout'
 
-export default function CreateCollectionPage() {
+export default function CreateCollection() {
   return (
-    <ProfileLayout>
+    // <ProfileLayout>
       <div className="space-y-6">
         <div>
           <h3 className="text-lg font-medium">Profile</h3>
@@ -16,6 +16,6 @@ export default function CreateCollectionPage() {
         <Separator />
         <CreateCollectionForm />
       </div>
-    </ProfileLayout>
+    // </ProfileLayout>
   )
 }

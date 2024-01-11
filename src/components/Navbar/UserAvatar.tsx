@@ -65,12 +65,12 @@ export function UserAvatar() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/create')}>
+                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/profile/create')}>
                     Create Post
                     <DropdownMenuShortcut>⇧⌘C</DropdownMenuShortcut>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/profile')}>
-                    Profile
+                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/profile/settings')}>
+                    Profile Settings
                     <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 {isAdmin && (
