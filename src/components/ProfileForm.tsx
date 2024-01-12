@@ -1,8 +1,6 @@
 const ProfileForm = () => {
     return (
-        <div>
-            PROFILE FORM
-        </div>
+        <div>123</div>
     )
 }
 

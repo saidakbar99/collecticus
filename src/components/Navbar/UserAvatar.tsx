@@ -28,7 +28,8 @@ export function UserAvatar() {
     const { user: {
         isAdmin,
         username,
-        email
+        email,
+        id
      } } = useAppSelector(state => state.userReducer)
 
     const logout = async () => {
@@ -65,13 +66,17 @@ export function UserAvatar() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/profile/create')}>
-                    Create Post
-                    <DropdownMenuShortcut>⇧⌘C</DropdownMenuShortcut>
-                </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/profile/settings')}>
                     Profile Settings
                     <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate(`/profile/collections/${id}`)}>
+                    My Collections
+                    <DropdownMenuShortcut>⇧⌘C</DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/profile/create')}>
+                    Create Post
+                    <DropdownMenuShortcut>⇧⌘C</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 {isAdmin && (
                     <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/admin')}>

@@ -1,19 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from "react-router-dom"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
 
+import ItemCard from '@/components/ItemCard'
 import CollectionService, { Collections } from '@/services/CollectionService'
 import { Button } from '../components/ui/button'
 
 const CollectionPage = () => {
-    const navigate = useNavigate()
     const location = useLocation()
 
     const [collection, setCollection] = useState<Collections>()
@@ -47,7 +39,38 @@ const CollectionPage = () => {
                 </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Card onClick={() => navigate('/item/123123')}>
+                {/* {Array(10).map((item) => (
+                    <div className="grid gap-8 lg:grid-cols-2">
+                        <article className="p-4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                            <div>
+                                <img className="rounded-lg" src="https://placehold.co/600x400" alt="123" />
+                            </div>
+                            <div className="flex justify-between items-center my-2 text-gray-500">
+                                <Badge>Topic</Badge>
+                                <span className="text-sm">14 days ago</span>
+                            </div>
+                            <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Book Collection</h2>
+                            <p className="mb-5 font-light text-gray-500 dark:text-gray-400">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even.</p>
+                            <div className="flex justify-between items-center">
+                                <div className="flex items-center space-x-4">
+                                    <img className="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+                                    <span className="font-medium dark:text-white">
+                                        Jese Leos
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                ))} */}
+                <ItemCard />
+                <ItemCard />
+                <ItemCard />
+                <ItemCard />
+                <ItemCard />
+                <ItemCard />
+                <ItemCard />
+                <ItemCard />
+                {/* <Card onClick={() => navigate('/item/123123')}>
                     <CardHeader>
                         <img className="h-auto max-w-full rounded-lg" src="https://placehold.co/600x400" alt="" />
                     </CardHeader>
@@ -56,77 +79,7 @@ const CollectionPage = () => {
                         <CardDescription>Author: Saidakbar</CardDescription>
                     </CardContent>
                     <CardFooter>Likes: 5</CardFooter>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <img className="h-auto max-w-full rounded-lg" src="https://placehold.co/600x400" alt="" />
-                    </CardHeader>
-                    <CardContent>
-                        <CardTitle>Sherlock Holmes</CardTitle>
-                        <CardDescription>Author: Saidakbar</CardDescription>
-                    </CardContent>
-                    <CardFooter>Likes: 5</CardFooter>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <img className="h-auto max-w-full rounded-lg" src="https://placehold.co/600x400" alt="" />
-                    </CardHeader>
-                    <CardContent>
-                        <CardTitle>Sherlock Holmes</CardTitle>
-                        <CardDescription>Author: Saidakbar</CardDescription>
-                    </CardContent>
-                    <CardFooter>Likes: 5</CardFooter>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <img className="h-auto max-w-full rounded-lg" src="https://placehold.co/600x400" alt="" />
-                    </CardHeader>
-                    <CardContent>
-                        <CardTitle>Sherlock Holmes</CardTitle>
-                        <CardDescription>Author: Saidakbar</CardDescription>
-                    </CardContent>
-                    <CardFooter>Likes: 5</CardFooter>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <img className="h-auto max-w-full rounded-lg" src="https://placehold.co/600x400" alt="" />
-                    </CardHeader>
-                    <CardContent>
-                        <CardTitle>Sherlock Holmes</CardTitle>
-                        <CardDescription>Author: Saidakbar</CardDescription>
-                    </CardContent>
-                    <CardFooter>Likes: 5</CardFooter>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <img className="h-auto max-w-full rounded-lg" src="https://placehold.co/600x400" alt="" />
-                    </CardHeader>
-                    <CardContent>
-                        <CardTitle>Sherlock Holmes</CardTitle>
-                        <CardDescription>Author: Saidakbar</CardDescription>
-                    </CardContent>
-                    <CardFooter>Likes: 5</CardFooter>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <img className="h-auto max-w-full rounded-lg" src="https://placehold.co/600x400" alt="" />
-                    </CardHeader>
-                    <CardContent>
-                        <CardTitle>Sherlock Holmes</CardTitle>
-                        <CardDescription>Author: Saidakbar</CardDescription>
-                    </CardContent>
-                    <CardFooter>Likes: 5</CardFooter>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <img className="h-auto max-w-full rounded-lg" src="https://placehold.co/600x400" alt="" />
-                    </CardHeader>
-                    <CardContent>
-                        <CardTitle>Sherlock Holmes</CardTitle>
-                        <CardDescription>Author: Saidakbar</CardDescription>
-                    </CardContent>
-                    <CardFooter>Likes: 5</CardFooter>
-                </Card>
+                </Card> */}
             </div>
         </>
     )

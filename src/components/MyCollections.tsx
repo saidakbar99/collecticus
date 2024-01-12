@@ -1,11 +1,9 @@
 import { Separator } from "@/components/ui/separator"
 
-// import ProfileLayout from '@/components/ProfileLayout'
 import MyCollectionsList from "@/components/MyCollectionsList"
 
 const MyCollections = () => {
     return (
-        // <ProfileLayout>
         <div className="space-y-6">
             <div>
                 <h3 className="text-lg font-medium">Collections</h3>
@@ -16,7 +14,6 @@ const MyCollections = () => {
             <Separator />
             <MyCollectionsList />
         </div>
-        // </ProfileLayout>
     )
 }
 

@@ -29,7 +29,7 @@ const App = () => {
                     <Route path="profile" element={<ProfileLayout />}>
                         <Route path='settings' element={<Settings />} />
                         <Route path='create' element={<CreateCollection />} />
-                        <Route path='collections' element={<MyCollections />} />
+                        <Route path='collections/:id' element={<MyCollections />} />
                     </Route>
                     <Route path='*' element={<ErrorPage />} />
                 </Route>

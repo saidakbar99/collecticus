@@ -5,16 +5,12 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 
 import { CollectionsGallery } from "@/components/CollectionsGallery"
-import CollectionService, { Collections } from '@/services/CollectionService'
-
-interface ExtendedCollections extends Collections {
-    _id: string;
-}
+import CollectionService, { FetchedCollections } from '@/services/CollectionService'
 
 export default function HomePage() {
     const navigate = useNavigate()
-    const [recentlyCollections, setRecentlyCollections] = useState<ExtendedCollections[]>([])
-    const [biggestCollections, setBiggestCollections] = useState<ExtendedCollections[]>([])
+    const [recentlyCollections, setRecentlyCollections] = useState<FetchedCollections[]>([])
+    const [biggestCollections, setBiggestCollections] = useState<FetchedCollections[]>([])
 
     const getCollections = async () => {
         try {
@@ -54,6 +50,7 @@ export default function HomePage() {
                         <Separator className="my-4" />
                         <div className="relative">
                             <ScrollArea>
+                                {/* <div className="grid gap-8 lg:grid-cols-5"> */}
                                 <div className="flex space-x-4 pb-4 cursor-pointer">
                                     {biggestCollections.map((collection, index) => (
                                         <CollectionsGallery

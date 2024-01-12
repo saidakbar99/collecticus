@@ -7,7 +7,7 @@ export const PROFILE_SIDEBAR_ITEMS = [
     },
     {
       title: "My Collections",
-      href: "/profile/collections",
+      href: "/profile/collections/",
     },
     {
       title: "Create Collection",

@@ -1,7 +1,6 @@
-import { useAppSelector } from "@/hooks/redux"
 import { Separator } from "@/components/ui/separator"
 
-// import ProfileLayout from '@/components/ProfileLayout'
+import { useAppSelector } from "@/hooks/redux"
 import ProfileForm from '@/components/ProfileForm'
 
 const Settings = () => {

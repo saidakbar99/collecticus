@@ -11,6 +11,10 @@ export interface Collections {
     }
 }
 
+export interface FetchedCollections extends Collections {
+    _id: string;
+}
+
 export default class CollectionService {
     static createCollection(collection: Collections) {
         return $api.post('/collection', { collection })
@@ -26,5 +30,9 @@ export default class CollectionService {
 
     static fetchOneCollection(collectionId: string) {
         return $api.get(`/collection/${collectionId}`)
+    }
+
+    static fetchUserCollections(userId: string) {
+        return $api.get(`/collections/${userId}`)
     }
 }

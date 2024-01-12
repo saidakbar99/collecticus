@@ -35,7 +35,7 @@ const ProfileLayout = () => {
                     <aside className='-mx-4 lg:w-1/5'>
                         <ProfileSidebar items={PROFILE_SIDEBAR_ITEMS} />
                     </aside>
-                    <div className='flex-1 lg:max-w-2xl'>
+                    <div className='flex-1'>
                         <Outlet />
                     </div>
                 </div>
