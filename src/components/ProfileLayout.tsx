@@ -1,13 +1,7 @@
-import { Outlet } from 'react-router-dom'
-import { Separator } from '@/components/ui/separator'
-
-import { ProfileSidebar } from './ProfileSidebar'
-import { PROFILE_SIDEBAR_ITEMS } from  '@/config'
-
 const ProfileLayout = () => {
     return (
         <>
-            <div className='md:hidden'>
+            {/* <div className='md:hidden'>
                 <img
                 src='/examples/forms-light.png'
                 width={1280}
@@ -39,7 +33,7 @@ const ProfileLayout = () => {
                         <Outlet />
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

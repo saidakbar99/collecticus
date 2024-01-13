@@ -1,9 +1,12 @@
 import $api from "../http"
+import { FetchedItems } from "./ItemService"
 
 export interface Collections {
     title: string
     description: string
     topic: string
+    createdAt: Date
+    items: FetchedItems[]
     user: {
         username: string
         id: string

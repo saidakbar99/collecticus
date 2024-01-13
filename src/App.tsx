@@ -3,7 +3,6 @@ import { ThemeProvider } from "@/components/ui/theme-provider"
 
 import './App.css'
 import MainLayout from "@/components/MainLayout"
-import ProfileLayout from '@/components/ProfileLayout'
 
 import ItemPage from "@/components/ItemPage"
 import Settings from "@/components/Settings"
@@ -26,11 +25,9 @@ const App = () => {
                     <Route path='admin' element={<AdminPage />} />
                     <Route path='collection/:id' element={<CollectionPage />} />
                     <Route path='item/:id' element={<ItemPage />} />
-                    <Route path="profile" element={<ProfileLayout />}>
-                        <Route path='settings' element={<Settings />} />
-                        <Route path='create' element={<CreateCollection />} />
-                        <Route path='collections/:id' element={<MyCollections />} />
-                    </Route>
+                    <Route path='settings' element={<Settings />} />
+                    <Route path='create' element={<CreateCollection />} />
+                    <Route path='collections/:id' element={<MyCollections />} />
                     <Route path='*' element={<ErrorPage />} />
                 </Route>
             </Routes>

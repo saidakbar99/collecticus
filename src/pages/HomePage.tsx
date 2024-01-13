@@ -57,9 +57,9 @@ export default function HomePage() {
                                             key={index}
                                             collection={collection}
                                             className="w-[250px]"
-                                            aspectRatio="portrait"
+                                            aspectRatio="square"
                                             width={250}
-                                            height={330}
+                                            height={250}
                                             onClick={() => navigate(`/collection/${collection._id}`)}
                                         />
                                     ))}
@@ -82,7 +82,7 @@ export default function HomePage() {
                                 <CollectionsGallery
                                     key={Math.random()}
                                     collection={collection}
-                                    className="w-[150px]"
+                                    className="w-[200px]"
                                     aspectRatio="square"
                                     width={150}
                                     height={150}

@@ -53,7 +53,6 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>
 
-// This can come from your database or API.
 const defaultValues: Partial<ProfileFormValues> = {
   description: "It is description.",
   urls: [
@@ -79,6 +78,7 @@ export function CreateCollectionForm() {
     title: '',
     description: '',
     topic: '',
+    items: [],
     user: {
       username: username,
       isAdmin: isAdmin,

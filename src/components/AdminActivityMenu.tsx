@@ -13,7 +13,7 @@ import UserService from '@/services/UserService'
 interface AdminActivityButtonProps {
     selectedUsers: string[];
     getUsers: () => void;
-  }
+}
 
 const AdminActivityMenu: React.FC<AdminActivityButtonProps> = ({ selectedUsers, getUsers }) => {
     const [isOpen, setIsOpen] = useState(false)
@@ -129,7 +129,6 @@ const AdminActivityMenu: React.FC<AdminActivityButtonProps> = ({ selectedUsers, 
                 <span className="sr-only">Open actions menu</span>
             </button>
         </div>
-
     )
 }
 

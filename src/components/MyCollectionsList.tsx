@@ -31,6 +31,7 @@ const MyCollectionsList = () => {
                     <article
                         className="p-4 cursor-pointer bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
                         onClick={() => navigate(`/collection/${item._id}`)}
+                        key={item._id}
                     >
                         <div>
                             <img className="rounded-lg h-auto w-auto object-cover transition-all hover:scale-105" src="https://placehold.co/600x400" alt="123" />

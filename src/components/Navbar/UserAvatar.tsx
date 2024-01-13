@@ -66,16 +66,16 @@ export function UserAvatar() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/profile/settings')}>
+                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/settings')}>
                     Profile Settings
                     <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate(`/profile/collections/${id}`)}>
+                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate(`/collections/${id}`)}>
                     My Collections
                     <DropdownMenuShortcut>⇧⌘C</DropdownMenuShortcut>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/profile/create')}>
-                    Create Post
+                <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/create')}>
+                    Create Collection
                     <DropdownMenuShortcut>⇧⌘C</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 {isAdmin && (

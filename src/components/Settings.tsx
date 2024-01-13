@@ -7,7 +7,6 @@ const Settings = () => {
     const { user } = useAppSelector(state => state.userReducer)
 
     return (
-        // <ProfileLayout>
         <div className="space-y-6">
             <div>
                 <h3 className="text-lg font-medium">Profile {user.username}</h3>
@@ -18,7 +17,6 @@ const Settings = () => {
             <Separator />
             <ProfileForm />
         </div>
-        // </ProfileLayout>
     )
 }
 
