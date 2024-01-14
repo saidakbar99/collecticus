@@ -12,7 +12,7 @@ const MyCollections = () => {
     const location = useLocation()
 
     const collectionOwnerId = location.pathname.split('/').slice(-1)[0]
-    const canCreateCollection = user.id === collectionOwnerId || user.isAdmin
+    const isOwner = user.id === collectionOwnerId || user.isAdmin
 
     return (
         <div className='space-y-6 mt-24'>
@@ -23,14 +23,14 @@ const MyCollections = () => {
                     </p>
                     <h3 className='font-medium'>{collectionOwnerId}</h3>
                 </div>
-                { canCreateCollection && (
+                { isOwner && (
                     <Button onClick={() => navigate('/create')}>
                         Add Collection
                     </Button>
                 )}
             </div>
             <Separator />
-            <MyCollectionsList />
+            <MyCollectionsList isOwner={isOwner} />
         </div>
     )
 }

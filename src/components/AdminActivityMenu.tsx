@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import {
     Trash2,
     UnlockKeyhole,
@@ -9,22 +10,41 @@ import {
 } from 'lucide-react';
 
 import UserService from '@/services/UserService'
-
+import { useAppSelector } from '@/hooks/redux'
+import { useAppDispatch } from "@/hooks/redux"
+import { saveUser } from "@/store/reducers/UserSlice"
+import AuthService from '@/services/AuthService'
 interface AdminActivityButtonProps {
     selectedUsers: string[];
     getUsers: () => void;
 }
 
 const AdminActivityMenu: React.FC<AdminActivityButtonProps> = ({ selectedUsers, getUsers }) => {
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+
+    const { user } = useAppSelector(state => state.userReducer)
+
     const [isOpen, setIsOpen] = useState(false)
+
+    const logout = async () => {
+        try {
+            await AuthService.logout()
+            localStorage.removeItem('token')
+            dispatch(saveUser(''))
+            navigate('/')
+        } catch (e) {
+            console.error('>>>', e)
+        }
+    }
 
     const deleteUsers = async () => {
         try {
             await UserService.deleteUsers(selectedUsers)
 
-            // if (selectedUsers.includes(store.user.id)) {
-            //     logout()
-            // }
+            if (selectedUsers.includes(user.id)) {
+                logout()
+            }
 
             getUsers()
         } catch (error) {
@@ -36,9 +56,9 @@ const AdminActivityMenu: React.FC<AdminActivityButtonProps> = ({ selectedUsers, 
         try {
             await UserService.blockUsers(selectedUsers)
 
-            // if (selectedUsers.includes(store.user.id)) {
-            //     logout()
-            // }
+            if (selectedUsers.includes(user.id)) {
+                logout()
+            }
 
             getUsers()
         } catch (error) {
@@ -67,6 +87,12 @@ const AdminActivityMenu: React.FC<AdminActivityButtonProps> = ({ selectedUsers, 
     const unmakeAdminUsers = async () => {
         try {
             await UserService.unmakeAdmin(selectedUsers)
+
+            if (selectedUsers.includes(user.id)) {
+                dispatch(saveUser({...user, isAdmin: false}))
+                navigate('/')
+            }
+
             getUsers()
         } catch (error) {
           console.error('Error removing users:', error)

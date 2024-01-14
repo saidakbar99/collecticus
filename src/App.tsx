@@ -3,6 +3,8 @@ import { ThemeProvider } from "@/components/ui/theme-provider"
 
 import './App.css'
 import MainLayout from "@/components/MainLayout"
+import PrivateRoute from '@/components/PrivateRoute'
+import AdminRoute from '@/components/AdminRoute'
 
 import ItemPage from "@/components/ItemPage"
 import Settings from "@/components/Settings"
@@ -20,15 +22,19 @@ const App = () => {
         <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
             <Routes>
                 <Route path="/" element={<MainLayout />}>
+                    <Route path='*' element={<ErrorPage />} />
                     <Route index element={<HomePage />} />
                     <Route path='auth' element={<SignForm />} />
-                    <Route path='admin' element={<AdminPage />} />
                     <Route path='collection/:id' element={<CollectionPage />} />
                     <Route path='item/:id' element={<ItemPage />} />
-                    <Route path='settings' element={<Settings />} />
-                    <Route path='create' element={<CreateCollection />} />
                     <Route path='collections/:id' element={<MyCollections />} />
-                    <Route path='*' element={<ErrorPage />} />
+                    <Route element={<PrivateRoute />}>
+                        <Route path='/settings' element={<Settings />} />
+                        <Route path='create' element={<CreateCollection />} />
+                        <Route element={<AdminRoute />}>
+                            <Route path='/admin' element={<AdminPage />} />
+                        </Route>
+                    </Route>
                 </Route>
             </Routes>
         </ThemeProvider>

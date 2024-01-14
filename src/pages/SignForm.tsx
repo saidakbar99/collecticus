@@ -34,10 +34,12 @@ export default function SignForm() {
         try {
             const response = await AuthService.registration(username, password, email)
                 .then(async () => await AuthService.login(username, password))
+
             localStorage.setItem('token', response.data.accessToken)
+            dispatch(saveUser(response.data.user))
 
             if (response.status === 200) {
-                navigate(`/profile`)
+                navigate(`/`)
             }
         } catch (e) {
             console.error(e)
@@ -52,6 +54,7 @@ export default function SignForm() {
             localStorage.setItem('token', response.data.accessToken)
             dispatch(saveUser(response.data.user))
 
+            //!add shadcn toaster
             switch (response.status) {
                 case 200:
                     navigate('/')
@@ -75,7 +78,8 @@ export default function SignForm() {
 
     const handleOnChange = (inputName: string, event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target
-        setAccountData({ ...accountData, [inputName]: value });
+        setAccountData({ ...accountData, [inputName]: value })
+        //! Add validation
         // areInputsValid()
     }
 

@@ -79,6 +79,7 @@ export function CreateCollectionForm() {
     description: '',
     topic: '',
     items: [],
+    createdAt: new Date(),
     user: {
       username: username,
       isAdmin: isAdmin,
@@ -92,14 +93,14 @@ export function CreateCollectionForm() {
     control: form.control,
   })
 
-  async function onSubmit() {
-    try {
-      const response = await CollectionService.createCollection(collectionData)
-      navigate(`/collection/${response.data._id}`)
-    } catch (e) {
-      console.error(e)
+    async function onSubmit() {
+        try {
+            await CollectionService.createCollection(collectionData)
+            navigate(`/collections/${id}`)
+        } catch (e) {
+        console.error(e)
+        }
     }
-  }
 
   return (
     <Form {...form}>

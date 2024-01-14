@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
 import 'moment/locale/en-au'
 import { Badge } from "@/components/ui/badge"
@@ -8,6 +9,8 @@ import AdminActivityButton from '@/components/AdminActivityMenu'
 import { User } from '@/components/UserSchema'
 
 const AdminTable = () => {
+    const navigate = useNavigate()
+
     const [users, setUsers] = useState<User[]>([])
     const [isSelectedAll, setIsSelectedAll] = useState(false)
     const [selectedUsers, setSelectedUsers] = useState<string[]>([])
@@ -72,10 +75,7 @@ const AdminTable = () => {
                                 />
                             </th>
                             <th scope="col" className="px-4 py-3">
-                                Username
-                            </th>
-                            <th scope="col" className="px-4 py-3">
-                                Email
+                                User
                             </th>
                             <th scope="col" className="px-4 py-3">
                                 Last Login
@@ -96,7 +96,7 @@ const AdminTable = () => {
                             const badgeColor = isBlocked ? 'red' : isAdmin ? 'blue' : 'green'
                             return (
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={user._id}>
-                                    <td scope="row" className="px-4 py-3">
+                                    <td className="px-4 py-3">
                                         {/* <Checkbox
                                             checked={selectedUsers.includes(user._id)}
                                             // onCheckedChange={ (isChecked: boolean) => handleCheckbox(isChecked) }
@@ -109,11 +109,15 @@ const AdminTable = () => {
                                             onChange={ handleCheckbox }
                                         />
                                     </td>
-                                    <td scope="row" className="px-4 py-3">
-                                        {user.username}
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        {user.email}
+                                    <td
+                                        className="flex items-center px-4 py-3 cursor-pointer"
+                                        onClick={() => navigate(`/collections/${user._id}`)}
+                                    >
+                                        <img className="w-9 h-9 rounded-full" src="https://github.com/shadcn.png" alt="avatar" />
+                                        <div className="ps-3">
+                                            <p className="text-base font-semibold">{user.username}</p>
+                                            <p className="font-normal text-gray-500">{user.email}</p>
+                                        </div>
                                     </td>
                                     <td className="px-4 py-3">
                                         {moment(user.lastLogin).format('LLL')}
