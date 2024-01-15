@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { formatDistance } from 'date-fns/formatDistance'
+import { Badge } from "@/components/ui/badge"
 import moment from 'moment'
 import 'moment/locale/en-au'
-import { Badge } from "@/components/ui/badge"
 
 import UserService from '@/services/UserService'
 import AdminActivityButton from '@/components/AdminActivityMenu'
@@ -120,7 +121,11 @@ const AdminTable = () => {
                                         </div>
                                     </td>
                                     <td className="px-4 py-3">
-                                        {moment(user.lastLogin).format('LLL')}
+                                        {formatDistance(
+                                            user?.lastLogin,
+                                            new Date(),
+                                            { addSuffix: true }
+                                        )}
                                     </td>
                                     <td className="px-4 py-3">
                                         {moment(user.createdAt).format('L')}

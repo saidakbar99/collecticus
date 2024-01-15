@@ -28,7 +28,7 @@ export default class CollectionService {
     }
 
     static fetchLastCollections() {
-        return $api.get('/collections-last')
+        return $api.get('/collections/last')
     }
 
     static fetchOneCollection(collectionId: string) {
@@ -37,5 +37,13 @@ export default class CollectionService {
 
     static fetchUserCollections(userId: string) {
         return $api.get(`/collections/${userId}`)
+    }
+
+    static fetchTopCollections() {
+        return $api.get(`/collections/top`)
+    }
+
+    static deleteCollections(selectedCollections: string[]) {
+        return $api.post('/collections/remove', { selectedCollections })
     }
 }

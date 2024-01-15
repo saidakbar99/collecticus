@@ -6,15 +6,14 @@ import MainLayout from "@/components/MainLayout"
 import PrivateRoute from '@/components/PrivateRoute'
 import AdminRoute from '@/components/AdminRoute'
 
-import ItemPage from "@/components/ItemPage"
 import Settings from "@/components/Settings"
 import CreateCollection from '@/components/CreateCollection'
 import MyCollections from "@/components/MyCollections"
 
 import CollectionPage from "@/pages/CollectionPage"
-import ErrorPage from "@/pages/ErrorPage"
 import HomePage from "@/pages/HomePage"
 import SignForm from "@/pages/SignForm"
+import ErrorPage from "@/pages/ErrorPage"
 import AdminPage from "@/pages/AdminPage"
 
 const App = () => {
@@ -26,7 +25,6 @@ const App = () => {
                     <Route index element={<HomePage />} />
                     <Route path='auth' element={<SignForm />} />
                     <Route path='collection/:id' element={<CollectionPage />} />
-                    <Route path='item/:id' element={<ItemPage />} />
                     <Route path='collections/:id' element={<MyCollections />} />
                     <Route element={<PrivateRoute />}>
                         <Route path='/settings' element={<Settings />} />

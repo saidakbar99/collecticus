@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils"
 import { Badge } from '@/components/ui/badge'
+import { formatDistance } from 'date-fns/formatDistance'
+
 import { Collections } from "@/services/CollectionService"
 
 interface CollectionsGalleryProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -32,9 +34,15 @@ export function CollectionsGallery({
             </div>
             <div className="flex justify-between items-center my-2 text-gray-500">
                 <Badge className="text-xs">{collection.topic}</Badge>
-                <span className="text-sm">14 days ago</span>
+                <span className="text-sm">
+                    {formatDistance(
+                        collection?.createdAt,
+                        new Date(),
+                        { addSuffix: true }
+                    )}
+                </span>
             </div>
-            <h2 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Book Collection</h2>
+            <h2 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{collection.title}</h2>
             <p className="mb-5 font-light text-gray-500 dark:text-gray-400 truncate">{collection.description}</p>
             <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">

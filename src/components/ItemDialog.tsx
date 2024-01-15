@@ -15,23 +15,36 @@ import {
 
 import ItemService, { Item } from '@/services/ItemService'
 
-interface AddItemProps {
+interface ItemDialogProps {
     getCollection: () => void;
+    title: string
+    outline: boolean
+    itemId?: string
 }
 
-const AddItem: React.FC<AddItemProps> = ({getCollection}) => {
+const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, itemId}) => {
     const collectionId = location.pathname.split('/').slice(-1)[0]
     const [item, setItem] = useState<Item>({
         name: '',
         tags: '',
-        createdAt: new Date(),
-        collectionId
+        createdAt: new Date()
     })
 
     async function onSubmit() {
         try {
-            await ItemService.addItemToCollection(item)
-                .then(() => getCollection())
+            if(itemId) {
+                await ItemService.editItem(item, collectionId, itemId)
+                    .then(() => getCollection())
+            } else {
+                await ItemService.addItemToCollection(item, collectionId)
+                    .then(() => getCollection())
+            }
+
+            setItem({
+                name: '',
+                tags: '',
+                createdAt: new Date()
+            })
         } catch (e) {
           console.error(e)
         }
@@ -40,11 +53,11 @@ const AddItem: React.FC<AddItemProps> = ({getCollection}) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button>Add Item</Button>
+                <Button variant={outline ? 'outline' : 'default'}>{title} Item</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Add Collection Item</DialogTitle>
+                    <DialogTitle>Collection Item</DialogTitle>
                     <DialogDescription>
                         Configure your item here. Click save when you're done.
                     </DialogDescription>
@@ -75,7 +88,7 @@ const AddItem: React.FC<AddItemProps> = ({getCollection}) => {
                 </div>
                 <DialogFooter>
                     <DialogClose>
-                        <Button onClick={onSubmit}>Save Item</Button>
+                        <Button onClick={ onSubmit }>Save Item</Button>
                     </DialogClose>
                 </DialogFooter>
             </DialogContent>
@@ -83,4 +96,4 @@ const AddItem: React.FC<AddItemProps> = ({getCollection}) => {
     )
 }
 
-export default AddItem;
+export default ItemDialog;

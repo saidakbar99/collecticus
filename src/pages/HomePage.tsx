@@ -14,11 +14,10 @@ export default function HomePage() {
 
     const getCollections = async () => {
         try {
-            const biggestCollectionsResponse = await CollectionService.fetchAllCollections()
+            const biggestCollectionsResponse = await CollectionService.fetchTopCollections()
             const recentlyCollectionResponse = await CollectionService.fetchLastCollections()
             setRecentlyCollections(recentlyCollectionResponse.data)
-            //! vvv sort by items count vvv
-            setBiggestCollections(biggestCollectionsResponse.data.slice(0,5))
+            setBiggestCollections(biggestCollectionsResponse.data)
         } catch (e) {
             console.error('Error fetching collections: ', e)
         }

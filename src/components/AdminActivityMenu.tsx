@@ -10,8 +10,7 @@ import {
 } from 'lucide-react';
 
 import UserService from '@/services/UserService'
-import { useAppSelector } from '@/hooks/redux'
-import { useAppDispatch } from "@/hooks/redux"
+import { useAppSelector, useAppDispatch } from '@/hooks/redux'
 import { saveUser } from "@/store/reducers/UserSlice"
 import AuthService from '@/services/AuthService'
 interface AdminActivityButtonProps {
