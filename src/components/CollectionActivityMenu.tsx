@@ -4,12 +4,12 @@ import { Trash2, PackagePlus, Plus } from 'lucide-react'
 
 import CollectionService from '@/services/CollectionService';
 
-interface AdminActivityButtonProps {
+interface CollectionActivityMenuProps {
     selectedCollections: string[];
     getUserCollections: () => void;
 }
 
-const CollectionActivityMenu: React.FC<AdminActivityButtonProps> = ({ selectedCollections, getUserCollections }) => {
+const CollectionActivityMenu: React.FC<CollectionActivityMenuProps> = ({ selectedCollections, getUserCollections }) => {
     const navigate = useNavigate()
 
     const [isOpen, setIsOpen] = useState(false)

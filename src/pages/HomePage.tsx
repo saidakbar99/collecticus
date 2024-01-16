@@ -27,10 +27,6 @@ export default function HomePage() {
         getCollections()
     }, [])
 
-    if (!recentlyCollections.length) {
-        return <div>Loading...</div>
-    }
-
     return (
         <div className="grid lg:grid-cols-4 mt-[72px]">
             <div className="col-span-3 lg:col-span-4 ">

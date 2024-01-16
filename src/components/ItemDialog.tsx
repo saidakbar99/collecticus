@@ -27,7 +27,7 @@ const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, i
     const [item, setItem] = useState<Item>({
         name: '',
         tags: '',
-        createdAt: new Date()
+        lastUpdate: new Date()
     })
 
     async function onSubmit() {
@@ -43,7 +43,7 @@ const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, i
             setItem({
                 name: '',
                 tags: '',
-                createdAt: new Date()
+                lastUpdate: new Date()
             })
         } catch (e) {
           console.error(e)
@@ -87,7 +87,7 @@ const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, i
                     </div>
                 </div>
                 <DialogFooter>
-                    <DialogClose>
+                    <DialogClose asChild>
                         <Button onClick={ onSubmit }>Save Item</Button>
                     </DialogClose>
                 </DialogFooter>

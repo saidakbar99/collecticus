@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button'
 import MyCollectionsList from '@/components/MyCollectionsList'
 import { useAppSelector } from '@/hooks/redux'
 import { useNavigate, useLocation } from 'react-router-dom'
-// import AddCollection from './AddCollection'
 
 const MyCollections = () => {
     const { user } = useAppSelector(state => state.userReducer)
@@ -30,7 +29,7 @@ const MyCollections = () => {
                 )}
             </div>
             <Separator />
-            <MyCollectionsList isOwner={isOwner} />
+            <MyCollectionsList isOwner={isOwner} collectionOwnerId={collectionOwnerId} />
         </div>
     )
 }

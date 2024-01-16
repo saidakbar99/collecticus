@@ -3,7 +3,7 @@ import $api from "../http"
 export interface Item {
     name: string
     tags: string
-    createdAt: Date
+    lastUpdate: Date
 }
 
 export interface FetchedItems extends Item {
@@ -17,5 +17,9 @@ export default class ItemService {
 
     static editItem(updatedItem: Item, collectionId: string, itemId: string) {
         return $api.patch('/item', { updatedItem, collectionId, itemId })
+    }
+
+    static deleteItems(selectedItems: string[], collectionId: string) {
+        return $api.delete('/item', { data: { selectedItems, collectionId } })
     }
 }

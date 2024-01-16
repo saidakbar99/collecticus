@@ -4,15 +4,14 @@ import moment from 'moment'
 
 import { FetchedCollections } from "@/services/CollectionService"
 import CollectionService from '@/services/CollectionService'
-import CollectionActivityMenu from './CollectionsActivityMenu'
+import CollectionActivityMenu from './CollectionActivityMenu'
 
 interface MyCollectionsListProps {
     isOwner: boolean
+    collectionOwnerId: string
 }
 
-const MyCollectionsList: React.FC<MyCollectionsListProps> = ({isOwner}) => {
-    const collectionOwnerId = location.pathname.split('/').slice(-1)[0]
-
+const MyCollectionsList: React.FC<MyCollectionsListProps> = ({isOwner, collectionOwnerId}) => {
     const [collections, setCollections] = useState<FetchedCollections[]>([])
     const [isSelectedAll, setIsSelectedAll] = useState(false)
     const [selectedCollections, setSelectedCollections] = useState<string[]>([])
