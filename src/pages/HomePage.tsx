@@ -6,17 +6,19 @@ import { Separator } from "@/components/ui/separator"
 
 import { CollectionsGallery } from "@/components/CollectionsGallery"
 import CollectionService, { FetchedCollections } from '@/services/CollectionService'
+import ItemService, { FetchedItems } from '@/services/ItemService'
+import ItemCard from '@/components/ItemCard'
 
 export default function HomePage() {
     const navigate = useNavigate()
-    const [recentlyCollections, setRecentlyCollections] = useState<FetchedCollections[]>([])
+    const [lastCreatedItems, setLastCreatedItems] = useState<FetchedItems[]>([])
     const [biggestCollections, setBiggestCollections] = useState<FetchedCollections[]>([])
 
     const getCollections = async () => {
         try {
             const biggestCollectionsResponse = await CollectionService.fetchTopCollections()
-            const recentlyCollectionResponse = await CollectionService.fetchLastCollections()
-            setRecentlyCollections(recentlyCollectionResponse.data)
+            const lastCreatedItemsResponse = await ItemService.getLastItems()
+            setLastCreatedItems(lastCreatedItemsResponse.data)
             setBiggestCollections(biggestCollectionsResponse.data)
         } catch (e) {
             console.error('Error fetching collections: ', e)
@@ -46,12 +48,12 @@ export default function HomePage() {
                         <div className="relative">
                             <ScrollArea>
                                 {/* <div className="grid gap-8 lg:grid-cols-5"> */}
-                                <div className="flex space-x-4 pb-4 cursor-pointer">
+                                <div className="flex space-x-4 pb-4">
                                     {biggestCollections.map((collection, index) => (
                                         <CollectionsGallery
                                             key={index}
                                             collection={collection}
-                                            className="w-[250px]"
+                                            className="w-[250px] cursor-pointer"
                                             aspectRatio="square"
                                             width={250}
                                             height={250}
@@ -64,28 +66,18 @@ export default function HomePage() {
                         </div>
                         <div className="mt-6 space-y-1">
                             <h2 className="text-2xl font-semibold tracking-tight">
-                                Recently Created Collections
+                                Recently Created Items
                             </h2>
                         </div>
                         <Separator className="my-4" />
                         <div className="relative">
                             <ScrollArea>
-                            <div className="flex space-x-4 pb-4 cursor-pointer">
-                                {
-                                //! Check to fetch last created Collections
-                                recentlyCollections.map((collection) => (
-                                <CollectionsGallery
-                                    key={Math.random()}
-                                    collection={collection}
-                                    className="w-[200px]"
-                                    aspectRatio="square"
-                                    width={150}
-                                    height={150}
-                                    onClick={() => navigate(`/collection/${collection._id}`)}
-                                />
-                                ))}
-                            </div>
-                            <ScrollBar orientation="horizontal" />
+                                <div className="flex space-x-4 p-2 pb-6">
+                                    {lastCreatedItems.map((item) => (
+                                        <ItemCard item={item} key={item._id} />
+                                    ))}
+                                </div>
+                                <ScrollBar orientation="horizontal" />
                             </ScrollArea>
                         </div>
                         <div className="mt-8">
@@ -97,3 +89,14 @@ export default function HomePage() {
         </div>
     )
 }
+
+// rules_version = '2';
+
+// service firebase.storage {
+//   match /b/{bucket}/o {
+//     match /{allPaths=**} {
+//       allow read, write: if
+//           request.time < timestamp.date(2024, 2, 17);
+//     }
+//   }
+// }

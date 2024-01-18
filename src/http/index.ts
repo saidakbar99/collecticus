@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { API_URL } from '@/config'
+import { API_URL } from '@/config/config'
 
 const $api = axios.create({
     withCredentials: true,

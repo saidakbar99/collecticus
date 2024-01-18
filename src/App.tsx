@@ -15,6 +15,7 @@ import HomePage from "@/pages/HomePage"
 import SignForm from "@/pages/SignForm"
 import ErrorPage from "@/pages/ErrorPage"
 import AdminPage from "@/pages/AdminPage"
+import ItemPage from "./pages/ItemPage"
 
 const App = () => {
     return (
@@ -26,6 +27,7 @@ const App = () => {
                     <Route path='auth' element={<SignForm />} />
                     <Route path='collection/:id' element={<CollectionPage />} />
                     <Route path='collections/:id' element={<MyCollections />} />
+                    <Route path='item/:id' element={<ItemPage />} />
                     <Route element={<PrivateRoute />}>
                         <Route path='/settings' element={<Settings />} />
                         <Route path='create' element={<CreateCollection />} />

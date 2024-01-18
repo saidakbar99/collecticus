@@ -23,7 +23,7 @@ export function CollectionsGallery({
         <div className={cn("space-y-3 p-3 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700", className)} {...props}>
             <div className="overflow-hidden rounded-md">
                 <img
-                src='https://placehold.co/600x400'
+                src={collection.image_url ? collection.image_url : 'https://placehold.co/600x400?text=Collecticus'}
                 width={width}
                 height={height}
                 className={cn(

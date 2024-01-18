@@ -1,9 +1,11 @@
 import $api from "../http"
+import { FetchedCollections } from "./CollectionService"
 
 export interface Item {
     name: string
     tags: string
     lastUpdate: Date
+    parentCollection: FetchedCollections
 }
 
 export interface FetchedItems extends Item {
@@ -21,5 +23,9 @@ export default class ItemService {
 
     static deleteItems(selectedItems: string[], collectionId: string) {
         return $api.delete('/item', { data: { selectedItems, collectionId } })
+    }
+
+    static getLastItems() {
+        return $api.get('/item/last')
     }
 }

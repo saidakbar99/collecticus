@@ -14,23 +14,27 @@ import {
 } from '@/components/ui/dialog'
 
 import ItemService, { Item } from '@/services/ItemService'
+import { FetchedCollections } from '@/services/CollectionService'
 
 interface ItemDialogProps {
     getCollection: () => void;
     title: string
     outline: boolean
     itemId?: string
+    collection: FetchedCollections
+    // collectionId: string
 }
 
-const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, itemId}) => {
-    const collectionId = location.pathname.split('/').slice(-1)[0]
+const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, itemId, collection}) => {
     const [item, setItem] = useState<Item>({
         name: '',
         tags: '',
-        lastUpdate: new Date()
+        lastUpdate: new Date(),
+        parentCollection: collection
     })
 
     async function onSubmit() {
+        const collectionId = location.pathname.split('/').slice(-1)[0]
         try {
             if(itemId) {
                 await ItemService.editItem(item, collectionId, itemId)
@@ -43,7 +47,8 @@ const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, i
             setItem({
                 name: '',
                 tags: '',
-                lastUpdate: new Date()
+                lastUpdate: new Date(),
+                parentCollection: collection
             })
         } catch (e) {
           console.error(e)

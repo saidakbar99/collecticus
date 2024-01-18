@@ -7,9 +7,10 @@ export interface Collections {
     topic: string
     createdAt: Date
     items: FetchedItems[]
+    image_url: string
     user: {
         username: string
-        id: string
+        _id: string
         isAdmin: boolean
     }
 }
@@ -20,6 +21,7 @@ export interface FetchedCollections extends Collections {
 
 export default class CollectionService {
     static createCollection(collection: Collections) {
+        console.log('>>>service', collection)
         return $api.post('/collection', { collection })
     }
 

@@ -23,10 +23,13 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { v4 } from 'uuid'
 
 import CollectionService from '@/services/CollectionService'
 import { useAppSelector } from '@/hooks/redux'
-import { TOPICS } from '@/config'
+import { TOPICS } from '@/config/config'
+import { storage } from '@/config/firebase.config'
 
 const profileFormSchema = z.object({
   title: z
@@ -61,6 +64,7 @@ const defaultValues: Partial<ProfileFormValues> = {
   ],
 }
 
+
 export function CreateCollectionForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -80,6 +84,7 @@ export function CreateCollectionForm() {
     topic: '',
     items: [],
     createdAt: new Date(),
+    image_url: '',
     user: {
       username: username,
       isAdmin: isAdmin,
@@ -87,11 +92,25 @@ export function CreateCollectionForm() {
     }
   })
 
+  const [imageUpload, setImageUpload] = useState(null)
 
-  const { fields, append } = useFieldArray({
-    name: "urls",
-    control: form.control,
-  })
+
+  // const { fields, append } = useFieldArray({
+  //   name: "urls",
+  //   control: form.control,
+  // })
+
+
+    //! upload when clicked Submit button
+    const uploadImage = () => {
+        if(imageUpload === null) return
+        const imageRef = ref(storage, `/images/${imageUpload.name + v4()}`)
+        uploadBytes(imageRef, imageUpload).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+                setCollectionData({...collectionData, image_url: url})
+            })
+        })
+    }
 
     async function onSubmit() {
         try {
@@ -178,7 +197,7 @@ export function CreateCollectionForm() {
           )}
         />
         <div>
-          {fields.map((field, index) => (
+          {/* {fields.map((field, index) => (
             <FormField
               control={form.control}
               key={field.id}
@@ -198,15 +217,16 @@ export function CreateCollectionForm() {
                 </FormItem>
               )}
             />
-          ))}
+          ))} */}
+          <input type="file" onChange={(event) => setImageUpload(event.target.files[0])} />
           <Button
             type="button"
             variant="outline"
             size="sm"
             className="mt-2"
-            onClick={() => append({ value: "" })}
+            onClick={uploadImage}
           >
-            Add URL
+            Add Image
           </Button>
         </div>
         <Button type="button" onClick={onSubmit}>Create Collection</Button>

@@ -7,6 +7,48 @@ import ItemDialog from '@/components/ItemDialog'
 import { useAppSelector } from '@/hooks/redux'
 import ItemsActivityMenu from '@/components/ItemsActivityMenu'
 import { FetchedItems } from '@/services/ItemService'
+// import {GridTable} from '@/components/agGridTable/GridTable'
+
+// import mockData from './mock.json'
+
+// import {
+//     createColumnHelper,
+//     flexRender,
+//     getCoreRowModel,
+//     useReactTable,
+//     getSortedRowModel,
+//     SortingState,
+//     getPaginationRowModel
+//   } from '@tanstack/react-table'
+// import TablePagination from '@/components/TablePagination'
+
+    // type Person = {
+    //     id: number
+    //     name: string
+    //     email: string
+    //     phone: string
+    // }
+
+    // const columnHelper = createColumnHelper<Person>()
+
+    // const columns = [
+    //     columnHelper.accessor('id', {
+    //         cell: info => info.getValue(),
+    //     }),
+    //     columnHelper.accessor('name', {
+    //         cell: info => info.getValue(),
+    //     }),
+    //     // you can use different aproach here
+    //     columnHelper.accessor(row => row.email, {
+    //         id: 'email',
+    //         cell: info => <i>{info.getValue()}</i>,
+    //         header: () => <span>Email</span>,
+    //     }),
+    //     columnHelper.accessor('phone', {
+    //         header: () => 'Phone',
+    //         cell: info => info.renderValue(),
+    //     })
+    // ]
 
 const CollectionPage = () => {
     const location = useLocation()
@@ -14,21 +56,7 @@ const CollectionPage = () => {
 
     const [isSelectedAll, setIsSelectedAll] = useState(false)
     const [selectedItems, setSelectedItems] = useState<string[]>([])
-    const [collection, setCollection] = useState<FetchedCollections>({
-        _id: '',
-        title: '',
-        description: '',
-        topic: '',
-        createdAt: new Date(),
-        items: [],
-        user: {
-            username: '',
-            id: '',
-            isAdmin: false
-        }
-    })
-
-    const isOwner = collection.user.id === user.id || user.isAdmin
+    const [collection, setCollection] = useState<FetchedCollections>()
 
     const getCollection = async () => {
         try {
@@ -39,6 +67,16 @@ const CollectionPage = () => {
             console.error('Error fetching collections: ', e)
         }
     }
+
+    useEffect(() => {
+        getCollection()
+    }, [])
+
+    if (!collection) {
+        return <div></div>
+    }
+
+    const isOwner = collection.user._id === user.id || user.isAdmin
 
     const handleSelectAll = () => {
         setIsSelectedAll(!isSelectedAll)
@@ -58,10 +96,6 @@ const CollectionPage = () => {
         }
     }
 
-    useEffect(() => {
-        getCollection()
-    }, [])
-
     return (
         < >
             <div className='grid grid-cols-2 mt-[72px] p-12'>
@@ -78,11 +112,11 @@ const CollectionPage = () => {
                     </p>
                     <p>{collection?.user.username}</p>
                     {isOwner && (
-                        <ItemDialog outline={false} title='Add' getCollection={getCollection} />
+                        <ItemDialog outline={false} title='Add' getCollection={getCollection} collection={{...collection, items: []}} />
                     )}
                 </div>
                 <div className=''>
-                    <img className='h-auto max-w-full rounded-lg' src='https://placehold.co/600x400' alt='' />
+                    <img className='h-72 rounded-lg' src={collection.image_url ? collection.image_url : 'https://placehold.co/600x400?text=Collecticus'} alt='' />
                 </div>
             </div>
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border ">
@@ -143,7 +177,13 @@ const CollectionPage = () => {
                             </td>
                             {isOwner && (
                                 <td className="px-4 py-3">
-                                    <ItemDialog outline title='Edit' getCollection={getCollection} itemId={item._id} />
+                                    <ItemDialog
+                                        outline
+                                        title='Edit'
+                                        getCollection={getCollection}
+                                        itemId={item._id}
+                                        collection={collection}
+                                    />
                                 </td>
                             )}
                         </tr>
@@ -154,6 +194,56 @@ const CollectionPage = () => {
                     }
                 </tbody>
             </table>
+            {/* <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border">
+                <thead>
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <tr
+                        key={headerGroup.id}
+                        className="border-b uppercase"
+                        >
+                        {headerGroup.headers.map((header) => (
+                            <th
+                            key={header.id}
+                            className="px-4 pr-2 py-4 font-medium text-left"
+                            >
+                            {header.isPlaceholder ? null : (
+                                <div
+                                {...{
+                                    className: header.column.getCanSort()
+                                    ? 'cursor-pointer select-none flex min-w-[36px]'
+                                    : '',
+                                    onClick: header.column.getToggleSortingHandler(),
+                                }}
+                                >
+                                {flexRender(
+                                    header.column.columnDef.header,
+                                    header.getContext()
+                                )}
+                                {{
+                                    asc: <span className="pl-2">↑</span>,
+                                    desc: <span className="pl-2">↓</span>,
+                                }[header.column.getIsSorted() as string] ?? null}
+                                </div>
+                            )}
+                            </th>
+                        ))}
+                        </tr>
+                    ))}
+                </thead>
+                <tbody>
+                    {table.getRowModel().rows.map(row => (
+                        <tr key={row.id} className="border-b">
+                            {row.getVisibleCells().map(cell => (
+                                <td key={cell.id} className="px-4 pt-[14px] pb-[18px]">
+                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table> */}
+            {/* <GridTable /> */}
+            {/* <TablePagination table={table} /> */}
             <ItemsActivityMenu selectedItems={selectedItems} getCollection={getCollection} collectionId={collection._id} />
         </>
     )
