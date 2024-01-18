@@ -3,7 +3,7 @@ import { FetchedCollections } from "./CollectionService"
 
 export interface Item {
     name: string
-    tags: string
+    tags: string[]
     lastUpdate: Date
     parentCollection: FetchedCollections
 }

@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, KeyboardEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
 import {
     Dialog,
     DialogContent,
@@ -13,30 +14,49 @@ import {
     DialogClose
 } from '@/components/ui/dialog'
 
-import ItemService, { Item } from '@/services/ItemService'
+import ItemService, { FetchedItems, Item } from '@/services/ItemService'
 import { FetchedCollections } from '@/services/CollectionService'
 
 interface ItemDialogProps {
     getCollection: () => void;
     title: string
     outline: boolean
-    itemId?: string
+    OldItem?: FetchedItems
     collection: FetchedCollections
-    // collectionId: string
+    itemId?: string
 }
 
-const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, itemId, collection}) => {
+const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, collection, OldItem, itemId}) => {
+    const [inputValue, setInputValue] = useState('')
     const [item, setItem] = useState<Item>({
-        name: '',
-        tags: '',
+        name: OldItem?.name || '',
+        tags: OldItem?.tags || [],
         lastUpdate: new Date(),
         parentCollection: collection
     })
+
+    const handleInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && inputValue.trim() !== '') {
+            if (!item.tags.includes(inputValue.trim())){
+                setItem((prevItem) => ({
+                    ...prevItem,
+                    tags: [...prevItem.tags, inputValue.trim()],
+                  }));
+                setInputValue('')
+            }
+        }
+    }
+
+    const handleTagRemove = (indexToRemove: number) => {
+        const updatedTags = item.tags.filter((_, index) => index !== indexToRemove)
+        setItem({...item, tags: updatedTags})
+    }
 
     async function onSubmit() {
         const collectionId = location.pathname.split('/').slice(-1)[0]
         try {
             if(itemId) {
+                console.log('>>>item', item)
                 await ItemService.editItem(item, collectionId, itemId)
                     .then(() => getCollection())
             } else {
@@ -46,7 +66,7 @@ const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, i
 
             setItem({
                 name: '',
-                tags: '',
+                tags: [],
                 lastUpdate: new Date(),
                 parentCollection: collection
             })
@@ -79,16 +99,32 @@ const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, i
                             onChange={(e) => setItem({...item, 'name': e.target.value })}
                         />
                     </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="username" className="text-right">
+                    <div>
+                        <div className='grid grid-cols-4 items-center gap-4 '>
+                            <Label htmlFor='tags' className='text-right'>
                             Tags
                         </Label>
                         <Input
-                            id="tags"
-                            value={item?.tags}
-                            className="col-span-3"
-                            onChange={(e) => setItem({...item, 'tags': e.target.value })}
+                            type='text'
+                            id='tags'
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                            onKeyDown={handleInputKeyDown}
+                            placeholder='Add tags...'
+                            className='col-span-3'
                         />
+                        </div>
+                        <div className='flex flex-wrap mt-1'>
+                            {item.tags.map((tag, index) => (
+                                <Badge
+                                    key={index}
+                                    className='p-1 m-1 rounded cursor-pointer hover:bg-red-500 hover:text-white transition duration-500'
+                                    onClick={() => handleTagRemove(index)}
+                                >
+                                    {tag}
+                                </Badge>
+                            ))}
+                        </div>
                     </div>
                 </div>
                 <DialogFooter>

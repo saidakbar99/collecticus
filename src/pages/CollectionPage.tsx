@@ -7,6 +7,7 @@ import ItemDialog from '@/components/ItemDialog'
 import { useAppSelector } from '@/hooks/redux'
 import ItemsActivityMenu from '@/components/ItemsActivityMenu'
 import { FetchedItems } from '@/services/ItemService'
+import { Badge } from '@/components/ui/badge'
 // import {GridTable} from '@/components/agGridTable/GridTable'
 
 // import mockData from './mock.json'
@@ -135,7 +136,7 @@ const CollectionPage = () => {
                         <th scope="col" className="px-4 py-3">
                             Name
                         </th>
-                        <th scope="col" className="px-4 py-3">
+                        <th scope="col" className="px-4 py-3 text-center">
                             Tags
                         </th>
                         <th scope="col" className="px-4 py-3">
@@ -165,8 +166,12 @@ const CollectionPage = () => {
                             <td scope="row" className="px-4 py-3">
                                 {item.name}
                             </td>
-                            <td className="px-4 py-3">
-                                {item.tags}
+                            <td className="px-4 py-3 max-w-48">
+                                {item.tags.map((tag, index) => (
+                                    <Badge key={index} className='ml-1'>
+                                        {tag}
+                                    </Badge>
+                                ))}
                             </td>
                             <td className="px-4 py-3">
                                 {formatDistance(
@@ -181,8 +186,9 @@ const CollectionPage = () => {
                                         outline
                                         title='Edit'
                                         getCollection={getCollection}
-                                        itemId={item._id}
                                         collection={collection}
+                                        OldItem={item}
+                                        itemId={item._id}
                                     />
                                 </td>
                             )}
