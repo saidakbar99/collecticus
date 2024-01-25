@@ -14,6 +14,7 @@ interface CollectionsGalleryProps {
 
 const CollectionsGallery: FC<CollectionsGalleryProps> = ({collection}) => {
     const navigate = useNavigate()
+
     return (
         <article
             className="w-[250px] flex flex-col justify-between cursor-pointer p-3 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"

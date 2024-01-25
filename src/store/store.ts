@@ -1,4 +1,4 @@
-import { combineReducers, configureStore, EnhancedStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore, EnhancedStore } from "@reduxjs/toolkit"
 import { PersistPartial } from 'redux-persist/lib/persistReducer'
 import storage from 'redux-persist/lib/storage'
 import {

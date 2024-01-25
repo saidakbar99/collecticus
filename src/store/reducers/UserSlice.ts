@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 export interface UserState {
     user: {
         username: string
@@ -34,6 +34,6 @@ export const userSlice = createSlice({
     }
 })
 
-export const { saveUser } = userSlice.actions;
+export const { saveUser } = userSlice.actions
 
 export default userSlice.reducer

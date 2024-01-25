@@ -19,7 +19,7 @@ import ItemService, { FetchedItems, Item } from '@/services/ItemService'
 import { FetchedCollections } from '@/services/CollectionService'
 
 interface ItemDialogProps {
-    getCollection: () => void;
+    getCollection: () => void
     title: string
     OldItem?: FetchedItems
     collection: FetchedCollections
@@ -44,7 +44,7 @@ const ItemDialog: FC<ItemDialogProps> = ({getCollection, title, collection, OldI
                 setItem((prevItem) => ({
                     ...prevItem,
                     tags: [...prevItem.tags, inputValue.trim()],
-                  }));
+                  }))
                 setInputValue('')
             }
         }
@@ -80,15 +80,15 @@ const ItemDialog: FC<ItemDialogProps> = ({getCollection, title, collection, OldI
 
     const handleFieldChange = (fieldIndex: number, value: string | number | boolean | Date) => {
         setItem((prevItem) => {
-            const updatedExtraFields = [...prevItem.extraFields];
-            updatedExtraFields[fieldIndex].value = value;
+            const updatedExtraFields = [...prevItem.extraFields]
+            updatedExtraFields[fieldIndex].value = value
 
             return {
                 ...prevItem,
                 extraFields: updatedExtraFields,
-            };
-        });
-    };
+            }
+        })
+    }
 
     useEffect(() => {
         setItem((prevItem) => ({
@@ -96,8 +96,8 @@ const ItemDialog: FC<ItemDialogProps> = ({getCollection, title, collection, OldI
             name: OldItem?.name || '',
             tags: OldItem?.tags || [],
             lastUpdate: new Date(),
-        }));
-    }, [OldItem]);
+        }))
+    }, [OldItem])
 
     return (
         <Dialog>
@@ -175,4 +175,4 @@ const ItemDialog: FC<ItemDialogProps> = ({getCollection, title, collection, OldI
     )
 }
 
-export default ItemDialog;
+export default ItemDialog

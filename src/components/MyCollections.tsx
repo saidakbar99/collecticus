@@ -34,4 +34,4 @@ const MyCollections = () => {
     )
 }
 
-export default MyCollections;
+export default MyCollections

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 import { useLocation } from 'react-router-dom'
-import { ThumbsUp, ThumbsDown } from 'lucide-react';
-import { Badge } from "@/components/ui/badge";
+import { ThumbsUp, ThumbsDown } from 'lucide-react'
+import { Badge } from "@/components/ui/badge"
 
-import ItemService, { FetchedItems } from "@/services/ItemService";
+import ItemService, { FetchedItems } from "@/services/ItemService"
 
 
 const ItemPage = () => {
@@ -69,4 +69,4 @@ const ItemPage = () => {
     )
 }
 
-export default ItemPage;
+export default ItemPage

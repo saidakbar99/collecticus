@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app"
 import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -8,8 +8,8 @@ const firebaseConfig = {
   storageBucket: "collecticus-dbb8a.appspot.com",
   messagingSenderId: "368684502594",
   appId: "1:368684502594:web:fab466fb38c2a5a1fee7db"
-};
+}
 
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig)
 
 export const storage = getStorage(app)

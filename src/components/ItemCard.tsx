@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import { formatDistance } from 'date-fns/formatDistance'
 import { Badge } from '@/components/ui/badge'
 
@@ -7,7 +8,7 @@ interface ItemCardProps {
     item: FetchedItems
 }
 
-const ItemCard: React.FC<ItemCardProps> = ({item}) => {
+const ItemCard: FC<ItemCardProps> = ({ item }) => {
     return (
         <article className="p-3 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 cursor-pointer transition-all hover:scale-105 w-[250px] flex flex-col justify-between">
             <div className="flex justify-between items-center mb-4 text-gray-500">
@@ -34,4 +35,4 @@ const ItemCard: React.FC<ItemCardProps> = ({item}) => {
     )
 }
 
-export default ItemCard;
+export default ItemCard

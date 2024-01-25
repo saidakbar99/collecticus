@@ -11,7 +11,6 @@ export default function SignForm() {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
-    const [isLoading, setIsLoading] = useState(false)
     const [isRegister, setIsRegister] = useState(false)
     const [accountData, setAccountData] = useState({
         username: '',
@@ -29,7 +28,6 @@ export default function SignForm() {
     }
 
     const handleRegister = async () => {
-        console.log('>>>', setIsLoading(false))
         const { username, password, email } = accountData
         try {
             const response = await AuthService.registration(username, password, email)
@@ -100,7 +98,6 @@ export default function SignForm() {
                                     autoCapitalize="none"
                                     // autoComplete="email"
                                     autoCorrect="off"
-                                    disabled={isLoading}
 
                                     value={accountData.email}
                                     onChange={(event) => handleOnChange('email', event)}
@@ -116,7 +113,6 @@ export default function SignForm() {
                                 autoCapitalize="none"
                                 // autoComplete="username"
                                 autoCorrect="off"
-                                disabled={isLoading}
 
                                 value={accountData.username}
                                 onChange={(event) => handleOnChange('username', event)}
@@ -130,7 +126,6 @@ export default function SignForm() {
                                 type="password"
                                 autoCapitalize="none"
                                 // autoComplete="password"
-                                disabled={isLoading}
 
                                 value={accountData.password}
                                 onChange={(event) => handleOnChange('password', event)}
@@ -141,12 +136,8 @@ export default function SignForm() {
                         </div>
                         <Button
                             type='button'
-                            disabled={isLoading}
                             onClick={isRegister ? handleRegister : handleLogin}
                         >
-                            {/* {isLoading && (
-                            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                            )} */}
                             Sign {isRegister ? 'Up' : 'In'}
                         </Button>
                         <p className="mt-2 flex cursor-pointer" onClick={changeSignForm}>
@@ -167,13 +158,8 @@ export default function SignForm() {
                     </span>
                     </div>
                 </div>
-                <Button type="button" disabled={isLoading}>
-                    {/* {isLoading ? (
-                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                    <Icons.gitHub className="mr-2 h-4 w-4" />
-                    )}{" "} */}
-                    Google
+                <Button type="button" disabled>
+                    Google (soon)
                 </Button>
             </div>
         </div>

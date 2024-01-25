@@ -7,7 +7,7 @@ import 'moment/locale/en-au'
 
 import UserService from '@/services/UserService'
 import AdminActivityButton from '@/components/AdminActivityMenu'
-import { User } from '@/components/UserSchema'
+import { User } from '@/services/UserService'
 
 const AdminTable = () => {
     const navigate = useNavigate()

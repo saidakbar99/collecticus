@@ -22,7 +22,7 @@ export interface Collections {
 }
 
 export interface FetchedCollections extends Collections {
-    _id: string;
+    _id: string
 }
 
 export default class CollectionService {

@@ -10,7 +10,7 @@ export interface Item {
 }
 
 export interface FetchedItems extends Item {
-    _id: string;
+    _id: string
 }
 
 export default class ItemService {

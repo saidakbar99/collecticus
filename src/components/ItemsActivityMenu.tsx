@@ -1,8 +1,8 @@
 import {useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 import { Trash2, PackagePlus, Plus } from 'lucide-react'
 
-import ItemService from '@/services/ItemService';
+import ItemService from '@/services/ItemService'
 
 interface ItemsActivityMenuProps {
     selectedItems: string[]
@@ -25,7 +25,7 @@ const ItemsActivityMenu: React.FC<ItemsActivityMenuProps> = ({ selectedItems, ge
     }
 
     return (
-        <div data-dial-init className="fixed end-6 bottom-6 group">
+        <div className="fixed end-6 bottom-6 group">
             <div className={`${isOpen ? '' : 'hidden'} flex flex-col items-center mb-4 space-y-2  `}>
                 <button
                     type="button"
@@ -33,7 +33,6 @@ const ItemsActivityMenu: React.FC<ItemsActivityMenuProps> = ({ selectedItems, ge
                     onClick={ deleteItems }
                 >
                     <Trash2 />
-                    <span className="sr-only">Delete</span>
                 </button>
                 <button
                     type="button"
@@ -41,19 +40,14 @@ const ItemsActivityMenu: React.FC<ItemsActivityMenuProps> = ({ selectedItems, ge
                     onClick={() => navigate('/create')}
                 >
                     <PackagePlus />
-                    <span className="sr-only">Create</span>
                 </button>
             </div>
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
-                data-dial-toggle="speed-dial-menu-default"
-                aria-controls="speed-dial-menu-default"
-                aria-expanded="false"
                 className="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700"
             >
                 <Plus strokeWidth={1.75} className={`w-8 h-8 transition-transform ${isOpen ? 'rotate-45' : ''}`} />
-                <span className="sr-only">Open actions menu</span>
             </button>
         </div>
     )

@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import { Button } from '../components/ui/button';
+import { useNavigate } from 'react-router-dom'
+import { Button } from '@/components/ui/button'
 
 const ErrorPage = () => {
     const navigate = useNavigate()
@@ -16,4 +16,4 @@ const ErrorPage = () => {
     )
 }
 
-export default ErrorPage;
+export default ErrorPage

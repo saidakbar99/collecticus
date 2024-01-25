@@ -1,24 +1,25 @@
-import React, { useState } from 'react'
+import { useState, SetStateAction } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Separator } from '@/components/ui/separator'
+import { Label } from '@/components/ui/label'
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue,
-  } from '@/components/ui/select'
-import { Button } from './ui/button'
-import { Input } from './ui/input'
-import { Textarea } from './ui/textarea'
-import { Separator } from './ui/separator'
-import { Label } from './ui/label'
+    SelectValue
+} from '@/components/ui/select'
+
 import { Collections } from '@/services/CollectionService'
 
 interface ExtraFieldsProps {
     collectionData: Collections
-    setCollectionData: React.Dispatch<React.SetStateAction<Collections>>;
+    setCollectionData: React.Dispatch<SetStateAction<Collections>>
 }
 
-const ExtraFields: React.FC<ExtraFieldsProps> = ({setCollectionData, collectionData}) => {
+const ExtraFields: React.FC<ExtraFieldsProps> = ({ setCollectionData, collectionData }) => {
     const [selectedFieldType, setSelectedFieldType] = useState('')
     const [extraFieldLabel, setExtraFieldLabel] = useState('')
 

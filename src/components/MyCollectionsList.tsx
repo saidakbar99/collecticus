@@ -137,4 +137,4 @@ const MyCollectionsList: React.FC<MyCollectionsListProps> = ({isOwner, collectio
     )
 }
 
-export default MyCollectionsList;
+export default MyCollectionsList

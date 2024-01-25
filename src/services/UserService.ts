@@ -1,5 +1,16 @@
 import $api from "../http"
 
+export interface User {
+    _id: string
+    name: string
+    email: string
+    username: string
+    isAdmin: boolean
+    isBlocked: boolean
+    lastLogin: Date
+    createdAt: Date
+}
+
 export default class UserService {
     static fetchUsers(token: string) {
         return $api.get('/users', {
