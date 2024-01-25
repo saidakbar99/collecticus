@@ -102,7 +102,7 @@ const ItemDialog: FC<ItemDialogProps> = ({getCollection, title, collection, OldI
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button size='sm'>{title} Item</Button>
+                <Button size='sm'>{title}</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

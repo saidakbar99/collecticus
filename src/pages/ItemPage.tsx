@@ -27,7 +27,7 @@ const ItemPage = () => {
     },[])
 
     return (
-        <div className='grid grid-cols-3 mt-6'>
+        <div className='grid grid-cols-1 gap-4 lg:gap-0 lg:grid-cols-3 mt-6'>
             <div className='grid grid-cols-2 gap-4 text-lg p-4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700'>
                 <div className='text-right'>
                     <p className='mb-2'>Item Name</p>
@@ -58,11 +58,13 @@ const ItemPage = () => {
             <div>
                 <p>Tags:</p>
                 <div className='p-2 flex flex-wrap bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700'>
-                    {item?.tags.map((tag) => (
+                    {item?.tags.length ? item.tags.map((tag) => (
                         <Badge key={tag} className='h-6 m-2 cursor-pointer'>
                             {tag}
                         </Badge>
-                    ))}
+                    )) : (
+                        <p>No Tags</p>
+                    )}
                 </div>
             </div>
         </div>

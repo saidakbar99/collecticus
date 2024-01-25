@@ -58,9 +58,9 @@ const AdminTable = () => {
     }, [])
 
     return (
-        <div className='hidden h-full flex-1 flex-col space-y-8 px-8 pt-6 md:flex'>
+        <div className='h-full flex-1 flex-col space-y-8 lg:px-8 pt-6 flex'>
             <div className='relative overflow-x-auto'>
-                <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border '>
+                <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400 border'>
                     <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b'>
                         <tr>
                             <th scope='col' className='px-4 py-3'>
@@ -114,7 +114,7 @@ const AdminTable = () => {
                                         className='flex items-center px-4 py-3 cursor-pointer'
                                         onClick={() => navigate(`/collections/${user._id}`)}
                                     >
-                                        {/* <img className='w-9 h-9 rounded-full' src='https://github.com/shadcn.png' alt='avatar' /> */}
+                                        <img className='w-9 h-9 rounded-full' src={`https://source.boringavatars.com/bauhaus/30/${user.username}`} alt='avatar' />
                                         <div className='ps-3'>
                                             <p className='text-base font-semibold'>{user.username}</p>
                                             <p className='font-normal text-gray-500'>{user.email}</p>

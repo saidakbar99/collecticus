@@ -127,7 +127,7 @@ const CreateCollection = () => {
 
     return (
         <Form {...form}>
-            <form className='grid grid-cols-1 sm:grid-cols-2 gap-12'>
+            <form className='grid grid-cols-1 sm:grid-cols-2 gap-12 mt-6'>
                 <div className=''>
                     <FormField
                     control={form.control}
@@ -184,11 +184,6 @@ const CreateCollection = () => {
                         <FormItem>
                             <FormLabel>Description</FormLabel>
                             <FormControl>
-                                {/* <Textarea
-                                    onChange={(e) => setCollectionData({ ...collectionData, 'description': e.target.value })}
-                                    placeholder='Description of your collection. You can use markdown'
-                                    className='resize-none'
-                                /> */}
                                 <SimpleMDE
                                     className='overflow-auto h-48'
                                     value={collectionData.description}

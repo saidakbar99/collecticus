@@ -28,8 +28,8 @@ export default function HomePage() {
     }, [])
 
     return (
-        <div className='grid lg:grid-cols-4'>
-            <div className='col-span-3 lg:col-span-4 '>
+        <div className='grid grid-cols-4'>
+            <div className='col-span-3 col-span-4 '>
                 <div className='h-full py-6 lg:px-8'>
                     <div className='border-none p-0 outline-none'>
                         <div className='flex items-center justify-between'>
