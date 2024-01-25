@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { formatDistance } from 'date-fns/formatDistance'
 import { Badge } from '@/components/ui/badge'
+import { Checkbox } from '@/components/ui/checkbox'
 import moment from 'moment'
 import 'moment/locale/en-au'
 
@@ -44,13 +45,14 @@ const AdminTable = () => {
         }
     }
 
-    const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { id, checked } = e.target
-        setSelectedUsers([...selectedUsers, id])
-
-        if (!checked) {
-          setSelectedUsers(selectedUsers.filter(item => item !== id))
-        }
+    const handleCheckbox = (checked: boolean, userId: string) => {
+        setSelectedUsers(prevSelectedUsers => {
+          if (checked) {
+            return [...prevSelectedUsers, userId];
+          } else {
+            return prevSelectedUsers.filter(item => item !== userId);
+          }
+        })
     }
 
     useEffect(() => {
@@ -63,16 +65,10 @@ const AdminTable = () => {
                 <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400 border'>
                     <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b'>
                         <tr>
-                            <th scope='col' className='px-4 py-3'>
-                                {/* <Checkbox
+                            <th scope='col' className='px-4 py-3 items-center'>
+                                <Checkbox
                                     checked={ isSelectedAll }
                                     onCheckedChange={ handleSelectAll }
-                                /> */}
-                                <input
-                                    className='cursor-pointer'
-                                    type='checkbox'
-                                    checked={ isSelectedAll }
-                                    onChange={ handleSelectAll }
                                 />
                             </th>
                             <th scope='col' className='px-4 py-3'>
@@ -98,16 +94,9 @@ const AdminTable = () => {
                             return (
                                 <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700' key={user._id}>
                                     <td className='px-4 py-3'>
-                                        {/* <Checkbox
+                                        <Checkbox
                                             checked={selectedUsers.includes(user._id)}
-                                            // onCheckedChange={ (isChecked: boolean) => handleCheckbox(isChecked) }
-                                        /> */}
-                                        <input
-                                            className='cursor-pointer'
-                                            type='checkbox'
-                                            id={user._id}
-                                            checked={ selectedUsers.includes(user._id) }
-                                            onChange={ handleCheckbox }
+                                            onCheckedChange={ (checked: boolean) => handleCheckbox(checked, user._id) }
                                         />
                                     </td>
                                     <td

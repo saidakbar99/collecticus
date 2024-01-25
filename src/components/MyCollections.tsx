@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import { Checkbox } from '@/components/ui/checkbox'
 import moment from 'moment'
 
 import { FetchedCollections } from '@/services/CollectionService'
@@ -39,14 +40,15 @@ const MyCollections = () => {
         }
     }
 
-    const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { id, checked } = e.target
-        setSelectedCollections([...selectedCollections, id])
-
-        if (!checked) {
-          setSelectedCollections(selectedCollections.filter(item => item !== id))
-        }
-    }
+    const handleCheckbox = (checked: boolean, collectionId: string) => {
+        setSelectedCollections(prevSelectedCollections => {
+          if (checked) {
+            return [...prevSelectedCollections, collectionId];
+          } else {
+            return prevSelectedCollections.filter(item => item !== collectionId);
+          }
+        });
+      };
 
     useEffect(() => {
         getUserCollections()
@@ -71,20 +73,14 @@ const MyCollections = () => {
             <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border '>
                 <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b'>
                     <tr>
-                        {isOwner && (
+                        {(isOwner && collections.length) ? (
                             <th scope='col' className='px-4 py-3'>
-                                {/* <Checkbox
+                                <Checkbox
                                     checked={ isSelectedAll }
                                     onCheckedChange={ handleSelectAll }
-                                /> */}
-                                <input
-                                    className='cursor-pointer'
-                                    type='checkbox'
-                                    checked={ isSelectedAll }
-                                    onChange={ handleSelectAll }
                                 />
                             </th>
-                        )}
+                        ) : ''}
                         <th scope='col' className='px-4 py-3'>
                             Title
                         </th>
@@ -110,16 +106,9 @@ const MyCollections = () => {
                         <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700' key={collection._id}>
                             {isOwner && (
                                 <td scope='row' className='px-4 py-3'>
-                                    {/* <Checkbox
-                                        checked={selectedCollections.includes(user._id)}
-                                        // onCheckedChange={ (isChecked: boolean) => handleCheckbox(isChecked) }
-                                    /> */}
-                                    <input
-                                        className='cursor-pointer'
-                                        type='checkbox'
-                                        id={collection._id}
-                                        checked={ selectedCollections.includes(collection._id) }
-                                        onChange={ handleCheckbox }
+                                    <Checkbox
+                                        checked={selectedCollections.includes(collection._id)}
+                                        onCheckedChange={(checked: boolean) => handleCheckbox(checked, collection._id)}
                                     />
                                 </td>
                             )}
@@ -145,8 +134,11 @@ const MyCollections = () => {
                             </td>
                         </tr>
                         )) : (
-                            //! refactor
-                            <div>no col</div>
+                            <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
+                                <td className='px-4 py-3 text-center text-xl font-semibold' colSpan={7}>
+                                    No Collections
+                                </td>
+                            </tr>
                         )
                     }
                 </tbody>

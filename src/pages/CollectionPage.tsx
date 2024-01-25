@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { formatDistance } from 'date-fns/formatDistance'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
@@ -10,7 +11,7 @@ import CollectionService, { FetchedCollections } from '@/services/CollectionServ
 import ItemDialog from '@/components/ItemDialog'
 import { useAppSelector } from '@/hooks/redux'
 import ItemsActivityMenu from '@/components/ItemsActivityMenu'
-import ItemService, { FetchedItems } from '@/services/ItemService'
+import { FetchedItems } from '@/services/ItemService'
 import { IMAGE_PLACEHOLDER } from '@/config/config'
 
 const CollectionPage = () => {
@@ -51,13 +52,14 @@ const CollectionPage = () => {
         }
     }
 
-    const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { id, checked } = e.target
-        setSelectedItems([...selectedItems, id])
-
-        if (!checked) {
-          setSelectedItems(selectedItems.filter(item => item !== id))
-        }
+    const handleCheckbox = (checked: boolean, itemId: string) => {
+        setSelectedItems(prevSelectedItems => {
+          if (checked) {
+            return [...prevSelectedItems, itemId];
+          } else {
+            return prevSelectedItems.filter(item => item !== itemId);
+          }
+        })
     }
 
     return (
@@ -91,12 +93,10 @@ const CollectionPage = () => {
                         <tr>
                             {isOwner && (
                                 <th scope='col' className='px-4 py-3'>
-                                    <input
-                                        className='cursor-pointer'
-                                        type='checkbox'
+                                    {/* <iz  */}
+                                    <Checkbox
                                         checked={ isSelectedAll }
-                                        onChange={ handleSelectAll }
-                                        disabled={!collection.items.length}
+                                        onCheckedChange={ handleSelectAll }
                                     />
                                 </th>
                             )}
@@ -122,12 +122,9 @@ const CollectionPage = () => {
                                 <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700' key={item._id}>
                                     {isOwner && (
                                         <td scope='row' className='px-4 py-3'>
-                                            <input
-                                                className='cursor-pointer'
-                                                type='checkbox'
-                                                id={item._id}
-                                                checked={ selectedItems.includes(item._id) }
-                                                onChange={ handleCheckbox }
+                                            <Checkbox
+                                                checked={selectedItems.includes(item._id)}
+                                                onCheckedChange={ (checked: boolean) => handleCheckbox(checked, item._id) }
                                             />
                                         </td>
                                     )}
