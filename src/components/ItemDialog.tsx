@@ -111,28 +111,28 @@ const ItemDialog: FC<ItemDialogProps> = ({getCollection, title, collection, OldI
                         Configure your item here. Click save when you're done.
                     </DialogDescription>
                 </DialogHeader>
-                <div className="grid grid-cols-2 gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="name" className="text-right">
+                <div className='grid grid-cols-2 gap-4 py-4'>
+                    <div className='grid grid-cols-4 items-center gap-4'>
+                        <Label htmlFor='name' className='text-right'>
                             Name
                             <span className='text-red-600'>*</span>
                         </Label>
                         <Input
-                            id="name"
+                            id='name'
                             value={item?.name}
-                            className="col-span-3"
+                            className='col-span-3'
                             onChange={(e) => setItem({...item, 'name': e.target.value })}
                         />
                     </div>
                     {collection.extraFields.map((field, index) => (
                         <div className='grid grid-cols-4 items-center gap-4' key={field.label}>
-                            <Label className="text-right capitalize">
+                            <Label className='text-right capitalize'>
                                 {field.label}
                             </Label>
                             <Input
                                 value={item.extraFields[index].value}
                                 type={field.fieldType}
-                                className="col-span-3"
+                                className='col-span-3'
                                 onChange={(e) => handleFieldChange(index, e.target.value)}
                             />
                         </div>

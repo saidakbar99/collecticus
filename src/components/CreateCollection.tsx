@@ -1,10 +1,10 @@
 import { useState, useMemo, useCallback } from 'react'
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
 import { useNavigate } from 'react-router-dom'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   Form,
   FormControl,
@@ -13,14 +13,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
+} from '@/components/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from '@/components/ui/select'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { v4 } from 'uuid'
 import SimpleMDE from 'react-simplemde-editor'
@@ -36,20 +36,20 @@ const profileFormSchema = z.object({
   title: z
     .string()
     .min(2, {
-      message: "Title must be at least 2 characters.",
+      message: 'Title must be at least 2 characters.',
     })
     .max(30, {
-      message: "Title must not be longer than 30 characters.",
+      message: 'Title must not be longer than 30 characters.',
     }),
   topic: z
     .string({
-      required_error: "Please select an topic.",
+      required_error: 'Please select an topic.',
     }),
   description: z.string().max(160).min(4),
   urls: z
     .array(
       z.object({
-        value: z.string().url({ message: "Please enter a valid URL." }),
+        value: z.string().url({ message: 'Please enter a valid URL.' }),
       })
     )
     .optional(),
@@ -61,7 +61,7 @@ const CreateCollection = () => {
     const navigate = useNavigate()
     const form = useForm<ProfileFormValues>({
         resolver: zodResolver(profileFormSchema),
-        mode: "onChange",
+        mode: 'onChange',
     })
     const { user: {
         username,
@@ -127,11 +127,11 @@ const CreateCollection = () => {
 
     return (
         <Form {...form}>
-            <form className="grid grid-cols-1 sm:grid-cols-2 gap-12">
+            <form className='grid grid-cols-1 sm:grid-cols-2 gap-12'>
                 <div className=''>
                     <FormField
                     control={form.control}
-                    name="title"
+                    name='title'
                     render={() => (
                         <FormItem>
                         <FormLabel>Title</FormLabel>
@@ -140,7 +140,7 @@ const CreateCollection = () => {
                                 onChange={(e) => {
                                     setCollectionData({ ...collectionData, 'title': e.target.value })
                                 }}
-                                placeholder="Collection Name"
+                                placeholder='Collection Name'
                             />
                         </FormControl>
                         <FormDescription>
@@ -152,7 +152,7 @@ const CreateCollection = () => {
                     />
                     <FormField
                     control={form.control}
-                    name="topic"
+                    name='topic'
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Topic</FormLabel>
@@ -165,7 +165,7 @@ const CreateCollection = () => {
                             >
                                 <FormControl>
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Select from predefined topics" />
+                                    <SelectValue placeholder='Select from predefined topics' />
                                 </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
@@ -179,15 +179,15 @@ const CreateCollection = () => {
                     />
                     <FormField
                     control={form.control}
-                    name="description"
+                    name='description'
                     render={() => (
                         <FormItem>
                             <FormLabel>Description</FormLabel>
                             <FormControl>
                                 {/* <Textarea
                                     onChange={(e) => setCollectionData({ ...collectionData, 'description': e.target.value })}
-                                    placeholder="Description of your collection. You can use markdown"
-                                    className="resize-none"
+                                    placeholder='Description of your collection. You can use markdown'
+                                    className='resize-none'
                                 /> */}
                                 <SimpleMDE
                                     className='overflow-auto h-48'
@@ -200,12 +200,12 @@ const CreateCollection = () => {
                     )}
                     />
                     <div>
-                        <input type="file" onChange={(event) => setImageUpload(event.target.files[0])} />
+                        <input type='file' onChange={(event) => setImageUpload(event.target.files[0])} />
                         <Button
-                            type="button"
-                            variant="outline"
-                            size="sm"
-                            className="mt-2"
+                            type='button'
+                            variant='outline'
+                            size='sm'
+                            className='mt-2'
                             onClick={uploadImage}
                         >
                             Add Image
@@ -215,7 +215,7 @@ const CreateCollection = () => {
                 <div>
                     <ExtraFields collectionData={collectionData} setCollectionData={setCollectionData} />
                 </div>
-                <Button type="button" onClick={onSubmit}>Create Collection</Button>
+                <Button type='button' onClick={onSubmit}>Create Collection</Button>
             </form>
         </Form>
     )

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 
-import { FetchedCollections } from "@/services/CollectionService"
+import { FetchedCollections } from '@/services/CollectionService'
 import CollectionService from '@/services/CollectionService'
 import CollectionActivityMenu from './CollectionActivityMenu'
 
@@ -49,77 +49,77 @@ const MyCollectionsList: React.FC<MyCollectionsListProps> = ({isOwner, collectio
 
     return (
         <>
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border ">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b">
+            <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border '>
+                <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b'>
                     <tr>
                         {isOwner && (
-                            <th scope="col" className="px-4 py-3">
+                            <th scope='col' className='px-4 py-3'>
                                 {/* <Checkbox
                                     checked={ isSelectedAll }
                                     onCheckedChange={ handleSelectAll }
                                 /> */}
                                 <input
-                                    className="cursor-pointer"
-                                    type="checkbox"
+                                    className='cursor-pointer'
+                                    type='checkbox'
                                     checked={ isSelectedAll }
                                     onChange={ handleSelectAll }
                                 />
                             </th>
                         )}
-                        <th scope="col" className="px-4 py-3">
+                        <th scope='col' className='px-4 py-3'>
                             Title
                         </th>
-                        <th scope="col" className="px-4 py-3">
+                        <th scope='col' className='px-4 py-3'>
                             Topic
                         </th>
-                        <th scope="col" className="px-4 py-3">
+                        <th scope='col' className='px-4 py-3'>
                             Items Count
                         </th>
-                        <th scope="col" className="px-4 py-3">
+                        <th scope='col' className='px-4 py-3'>
                             Extra Fields Count
                         </th>
-                        <th scope="col" className="px-4 py-3">
+                        <th scope='col' className='px-4 py-3'>
                             Created Data
                         </th>
-                        <th scope="col" className="px-4 py-3">
+                        <th scope='col' className='px-4 py-3'>
                             Action
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     {collections.length ? collections.map((collection) => (
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={collection._id}>
+                        <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700' key={collection._id}>
                             {isOwner && (
-                                <td scope="row" className="px-4 py-3">
+                                <td scope='row' className='px-4 py-3'>
                                     {/* <Checkbox
                                         checked={selectedCollections.includes(user._id)}
                                         // onCheckedChange={ (isChecked: boolean) => handleCheckbox(isChecked) }
                                     /> */}
                                     <input
-                                        className="cursor-pointer"
-                                        type="checkbox"
+                                        className='cursor-pointer'
+                                        type='checkbox'
                                         id={collection._id}
                                         checked={ selectedCollections.includes(collection._id) }
                                         onChange={ handleCheckbox }
                                     />
                                 </td>
                             )}
-                            <td scope="row" className="px-4 py-3">
+                            <td scope='row' className='px-4 py-3'>
                                 {collection.title}
                             </td>
-                            <td className="px-4 py-3">
+                            <td className='px-4 py-3'>
                                 {collection.topic}
                             </td>
-                            <td className="px-4 py-3">
+                            <td className='px-4 py-3'>
                                 {collection.items.length}
                             </td>
-                            <td className="px-4 py-3">
+                            <td className='px-4 py-3'>
                                 {collection.extraFields.length}
                             </td>
-                            <td className="px-4 py-3">
+                            <td className='px-4 py-3'>
                                 {moment(collection.createdAt).format('L')}
                             </td>
-                            <td className="px-4 py-3">
+                            <td className='px-4 py-3'>
                                 <Link to={`/collection/${collection._id}`}>
                                     Edit
                                 </Link>
