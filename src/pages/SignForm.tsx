@@ -84,7 +84,7 @@ export default function SignForm() {
     }
 
     return (
-        <div className="mt-[72px] pt-12">
+        <div className="pt-12">
             <div className="grid mx-auto space-y-6 sm:w-[400px] border px-10 pb-12 pt-6 rounded-xl bg-[#fafafa] dark:bg-gray-900 shadow-xl">
                 <h1 className="text-center text-2xl font-semibold tracking-tight">
                     {isRegister ? 'Create an account' : 'Login into account'}

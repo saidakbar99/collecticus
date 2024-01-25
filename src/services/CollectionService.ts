@@ -1,6 +1,11 @@
 import $api from "../http"
 import { FetchedItems } from "./ItemService"
 
+export interface ExtraFields {
+    fieldType: string
+    label: string
+    value: string | number | boolean | Date
+}
 export interface Collections {
     title: string
     description: string
@@ -8,6 +13,7 @@ export interface Collections {
     createdAt: Date
     items: FetchedItems[]
     image_url: string
+    extraFields: ExtraFields[]
     user: {
         username: string
         _id: string
@@ -21,12 +27,7 @@ export interface FetchedCollections extends Collections {
 
 export default class CollectionService {
     static createCollection(collection: Collections) {
-        console.log('>>>service', collection)
         return $api.post('/collection', { collection })
-    }
-
-    static fetchAllCollections() {
-        return $api.get('/collections')
     }
 
     static fetchLastCollections() {

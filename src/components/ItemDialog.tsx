@@ -1,4 +1,5 @@
-import { useState, KeyboardEvent } from 'react'
+import { useState, KeyboardEvent, FC, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
@@ -20,19 +21,21 @@ import { FetchedCollections } from '@/services/CollectionService'
 interface ItemDialogProps {
     getCollection: () => void;
     title: string
-    outline: boolean
     OldItem?: FetchedItems
     collection: FetchedCollections
     itemId?: string
 }
 
-const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, collection, OldItem, itemId}) => {
+const ItemDialog: FC<ItemDialogProps> = ({getCollection, title, collection, OldItem, itemId}) => {
+    const location = useLocation()
+
     const [inputValue, setInputValue] = useState('')
     const [item, setItem] = useState<Item>({
         name: OldItem?.name || '',
         tags: OldItem?.tags || [],
         lastUpdate: new Date(),
-        parentCollection: collection
+        parentCollection: collection,
+        extraFields: collection.extraFields
     })
 
     const handleInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -56,7 +59,6 @@ const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, c
         const collectionId = location.pathname.split('/').slice(-1)[0]
         try {
             if(itemId) {
-                console.log('>>>item', item)
                 await ItemService.editItem(item, collectionId, itemId)
                     .then(() => getCollection())
             } else {
@@ -68,29 +70,52 @@ const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, c
                 name: '',
                 tags: [],
                 lastUpdate: new Date(),
-                parentCollection: collection
+                parentCollection: collection,
+                extraFields: collection.extraFields
             })
         } catch (e) {
           console.error(e)
         }
     }
 
+    const handleFieldChange = (fieldIndex: number, value: string | number | boolean | Date) => {
+        setItem((prevItem) => {
+            const updatedExtraFields = [...prevItem.extraFields];
+            updatedExtraFields[fieldIndex].value = value;
+
+            return {
+                ...prevItem,
+                extraFields: updatedExtraFields,
+            };
+        });
+    };
+
+    useEffect(() => {
+        setItem((prevItem) => ({
+            ...prevItem,
+            name: OldItem?.name || '',
+            tags: OldItem?.tags || [],
+            lastUpdate: new Date(),
+        }));
+    }, [OldItem]);
+
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant={outline ? 'outline' : 'default'}>{title} Item</Button>
+                <Button size='sm'>{title} Item</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Collection Item</DialogTitle>
                     <DialogDescription>
                         Configure your item here. Click save when you're done.
                     </DialogDescription>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-2 gap-4 py-4">
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="name" className="text-right">
                             Name
+                            <span className='text-red-600'>*</span>
                         </Label>
                         <Input
                             id="name"
@@ -99,37 +124,50 @@ const ItemDialog: React.FC<ItemDialogProps> = ({getCollection, title, outline, c
                             onChange={(e) => setItem({...item, 'name': e.target.value })}
                         />
                     </div>
-                    <div>
-                        <div className='grid grid-cols-4 items-center gap-4 '>
-                            <Label htmlFor='tags' className='text-right'>
-                            Tags
-                        </Label>
-                        <Input
-                            type='text'
-                            id='tags'
-                            value={inputValue}
-                            onChange={(e) => setInputValue(e.target.value)}
-                            onKeyDown={handleInputKeyDown}
-                            placeholder='Add tags...'
-                            className='col-span-3'
-                        />
+                    {collection.extraFields.map((field, index) => (
+                        <div className='grid grid-cols-4 items-center gap-4' key={field.label}>
+                            <Label className="text-right capitalize">
+                                {field.label}
+                            </Label>
+                            <Input
+                                value={item.extraFields[index].value}
+                                type={field.fieldType}
+                                className="col-span-3"
+                                onChange={(e) => handleFieldChange(index, e.target.value)}
+                            />
                         </div>
-                        <div className='flex flex-wrap mt-1'>
-                            {item.tags.map((tag, index) => (
-                                <Badge
-                                    key={index}
-                                    className='p-1 m-1 rounded cursor-pointer hover:bg-red-500 hover:text-white transition duration-500'
-                                    onClick={() => handleTagRemove(index)}
-                                >
-                                    {tag}
-                                </Badge>
-                            ))}
-                        </div>
+                    ))}
+                </div>
+                <div>
+                    <div className='flex items-center'>
+                        <Label htmlFor='tags' className='text-right mr-4'>
+                        Tags
+                    </Label>
+                    <Input
+                        type='text'
+                        id='tags'
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        onKeyDown={handleInputKeyDown}
+                        placeholder='Add tags...'
+                        className='col-span-3'
+                    />
+                    </div>
+                    <div className='flex flex-wrap mt-1'>
+                        {item.tags.map((tag, index) => (
+                            <Badge
+                                key={index}
+                                className='p-1 m-1 rounded cursor-pointer hover:bg-red-500 hover:text-white transition duration-500'
+                                onClick={() => handleTagRemove(index)}
+                            >
+                                {tag}
+                            </Badge>
+                        ))}
                     </div>
                 </div>
                 <DialogFooter>
                     <DialogClose asChild>
-                        <Button onClick={ onSubmit }>Save Item</Button>
+                        <Button onClick={onSubmit}>Save Item</Button>
                     </DialogClose>
                 </DialogFooter>
             </DialogContent>

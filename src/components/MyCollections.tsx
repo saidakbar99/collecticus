@@ -14,7 +14,7 @@ const MyCollections = () => {
     const isOwner = user.id === collectionOwnerId || user.isAdmin
 
     return (
-        <div className='space-y-6 mt-24'>
+        <div className='space-y-6'>
             <div className='flex justify-between'>
                 <div className='flex items-center'>
                     <p className='text-muted-foreground mr-2'>

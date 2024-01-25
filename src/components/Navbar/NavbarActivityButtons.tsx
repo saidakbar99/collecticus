@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 
-import { useAppSelector } from "@/hooks/redux"
+import { useAppSelector } from '@/hooks/redux'
 import { UserAvatar } from './UserAvatar'
 
 const NavbarActivityButtons = () => {
@@ -13,18 +13,15 @@ const NavbarActivityButtons = () => {
                 <UserAvatar />
             </div>
         )
-    } else {
-        return (
-            <Link to='/auth'>
-                <Button
-                    type='button'
-                    className='ml-12'
-                >
-                    Login
-                </Button>
-            </Link>
-        )
     }
+
+    return (
+        <Link to='/auth'>
+            <Button type='button' className='ml-12'>
+                Login
+            </Button>
+        </Link>
+    )
 }
 
-export default NavbarActivityButtons;
+export default NavbarActivityButtons

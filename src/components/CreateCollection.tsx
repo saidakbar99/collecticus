@@ -4,7 +4,7 @@ import { CreateCollectionForm } from "./CreateCollectionForm"
 
 export default function CreateCollection() {
   return (
-      <div className="space-y-6 mt-24">
+      <div className="space-y-6">
         <div>
           <h3 className="text-lg font-medium">Profile</h3>
           <p className="text-sm text-muted-foreground">

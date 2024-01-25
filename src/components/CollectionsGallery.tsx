@@ -1,38 +1,31 @@
-import { cn } from "@/lib/utils"
-import { Badge } from '@/components/ui/badge'
+import { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { formatDistance } from 'date-fns/formatDistance'
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import { Badge } from '@/components/ui/badge'
 
-import { Collections } from "@/services/CollectionService"
+import { FetchedCollections } from "@/services/CollectionService"
+import { IMAGE_PLACEHOLDER } from "@/config/config"
 
-interface CollectionsGalleryProps extends React.HTMLAttributes<HTMLDivElement> {
-  collection: Collections
-  aspectRatio?: "portrait" | "square"
-  width?: number
-  height?: number
+interface CollectionsGalleryProps {
+  collection: FetchedCollections
 }
 
-export function CollectionsGallery({
-  collection,
-  aspectRatio = "portrait",
-  width,
-  height,
-  className,
-  ...props
-}: CollectionsGalleryProps) {
+const CollectionsGallery: FC<CollectionsGalleryProps> = ({collection}) => {
+    const navigate = useNavigate()
     return (
-        <div className={cn("space-y-3 p-3 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700", className)} {...props}>
-            <div className="overflow-hidden rounded-md">
+        <article
+            className="w-[250px] flex flex-col justify-between cursor-pointer p-3 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+            onClick={() => navigate(`/collection/${collection._id}`)}
+        >
+            <div className="overflow-hidden rounded-md relative">
                 <img
-                src={collection.image_url ? collection.image_url : 'https://placehold.co/600x400?text=Collecticus'}
-                width={width}
-                height={height}
-                className={cn(
-                    "h-auto w-auto object-cover transition-all hover:scale-105 aspect-square",
-                    aspectRatio === "portrait" ? "aspect-[3/4]" : "aspect-square"
-                )}
+                    src={collection.image_url || IMAGE_PLACEHOLDER}
+                    className="h-auto w-auto object-cover transition-all hover:scale-105 aspect-square z-20"
                 />
             </div>
-            <div className="flex justify-between items-center my-2 text-gray-500">
+            <div className="flex justify-between items-center mt-4 mb-3 text-gray-500">
                 <Badge className="text-xs">{collection.topic}</Badge>
                 <span className="text-sm">
                     {formatDistance(
@@ -43,7 +36,11 @@ export function CollectionsGallery({
                 </span>
             </div>
             <h2 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{collection.title}</h2>
-            <p className="mb-5 font-light text-gray-500 dark:text-gray-400 truncate">{collection.description}</p>
+            <div className="mb-5 font-light text-gray-500 dark:text-gray-400 max-h-12 overflow-hidden truncate">
+                <Markdown remarkPlugins={[remarkGfm]}>
+                    {collection?.description}
+                </Markdown>
+            </div>
             <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                     <img className="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
@@ -52,10 +49,8 @@ export function CollectionsGallery({
                     </span>
                 </div>
             </div>
-            {/* <div className="space-y-1 text-sm">
-                <h3 className="font-medium leading-none">{collection?.title}</h3>
-                <p className="text-xs text-muted-foreground">{collection?.user.username}</p>
-            </div> */}
-        </div>
+        </article>
     )
 }
+
+export default CollectionsGallery

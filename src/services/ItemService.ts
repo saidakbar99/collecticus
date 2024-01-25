@@ -1,11 +1,12 @@
 import $api from "../http"
-import { FetchedCollections } from "./CollectionService"
+import { FetchedCollections, ExtraFields } from "./CollectionService"
 
 export interface Item {
     name: string
     tags: string[]
     lastUpdate: Date
-    parentCollection: FetchedCollections
+    parentCollection: FetchedCollections,
+    extraFields: ExtraFields[]
 }
 
 export interface FetchedItems extends Item {
@@ -27,5 +28,13 @@ export default class ItemService {
 
     static getLastItems() {
         return $api.get('/item/last')
+    }
+
+    static getItem(itemId: string) {
+        return $api.get(`/item/${itemId}`)
+    }
+
+    static search(query: string) {
+        return $api.get('/search', { data: { query } })
     }
 }

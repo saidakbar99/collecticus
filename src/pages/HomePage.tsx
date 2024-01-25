@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom"
 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 
-import { CollectionsGallery } from "@/components/CollectionsGallery"
+import CollectionsGallery from "@/components/CollectionsGallery"
 import CollectionService, { FetchedCollections } from '@/services/CollectionService'
 import ItemService, { FetchedItems } from '@/services/ItemService'
 import ItemCard from '@/components/ItemCard'
 
 export default function HomePage() {
-    const navigate = useNavigate()
     const [lastCreatedItems, setLastCreatedItems] = useState<FetchedItems[]>([])
     const [biggestCollections, setBiggestCollections] = useState<FetchedCollections[]>([])
 
@@ -30,7 +28,7 @@ export default function HomePage() {
     }, [])
 
     return (
-        <div className="grid lg:grid-cols-4 mt-[72px]">
+        <div className="grid lg:grid-cols-4">
             <div className="col-span-3 lg:col-span-4 ">
                 <div className="h-full py-6 lg:px-8">
                     <div className="border-none p-0 outline-none">
@@ -47,17 +45,11 @@ export default function HomePage() {
                         <Separator className="my-4" />
                         <div className="relative">
                             <ScrollArea>
-                                {/* <div className="grid gap-8 lg:grid-cols-5"> */}
                                 <div className="flex space-x-4 pb-4">
                                     {biggestCollections.map((collection, index) => (
                                         <CollectionsGallery
                                             key={index}
                                             collection={collection}
-                                            className="w-[250px] cursor-pointer"
-                                            aspectRatio="square"
-                                            width={250}
-                                            height={250}
-                                            onClick={() => navigate(`/collection/${collection._id}`)}
                                         />
                                     ))}
                                 </div>
@@ -89,14 +81,3 @@ export default function HomePage() {
         </div>
     )
 }
-
-// rules_version = '2';
-
-// service firebase.storage {
-//   match /b/{bucket}/o {
-//     match /{allPaths=**} {
-//       allow read, write: if
-//           request.time < timestamp.date(2024, 2, 17);
-//     }
-//   }
-// }

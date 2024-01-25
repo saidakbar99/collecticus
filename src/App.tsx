@@ -6,7 +6,7 @@ import MainLayout from "@/components/MainLayout"
 import PrivateRoute from '@/components/PrivateRoute'
 import AdminRoute from '@/components/AdminRoute'
 
-import Settings from "@/components/Settings"
+// import Settings from "@/components/Settings"
 import CreateCollection from '@/components/CreateCollection'
 import MyCollections from "@/components/MyCollections"
 
@@ -29,7 +29,7 @@ const App = () => {
                     <Route path='collections/:id' element={<MyCollections />} />
                     <Route path='item/:id' element={<ItemPage />} />
                     <Route element={<PrivateRoute />}>
-                        <Route path='/settings' element={<Settings />} />
+                        {/* <Route path='/settings' element={<Settings />} /> */}
                         <Route path='create' element={<CreateCollection />} />
                         <Route element={<AdminRoute />}>
                             <Route path='/admin' element={<AdminPage />} />

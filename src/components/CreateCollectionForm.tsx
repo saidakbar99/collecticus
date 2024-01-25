@@ -1,9 +1,8 @@
-import { useState } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useFieldArray, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { useNavigate } from 'react-router-dom'
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -22,14 +21,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { v4 } from 'uuid'
+import SimpleMDE from 'react-simplemde-editor';
+import 'easymde/dist/easymde.min.css';
 
-import CollectionService from '@/services/CollectionService'
+import CollectionService, {Collections} from '@/services/CollectionService'
 import { useAppSelector } from '@/hooks/redux'
-import { TOPICS } from '@/config/config'
+import { TOPICS} from '@/config/config'
 import { storage } from '@/config/firebase.config'
+import ExtraFields from './ExtraFields'
 
 const profileFormSchema = z.object({
   title: z
@@ -56,50 +57,33 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>
 
-const defaultValues: Partial<ProfileFormValues> = {
-  description: "It is description.",
-  urls: [
-    { value: "https://shadcn.com" },
-    { value: "http://twitter.com/shadcn" },
-  ],
-}
-
-
 export function CreateCollectionForm() {
-  const form = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileFormSchema),
-    defaultValues,
-    mode: "onChange",
-  })
-  const navigate = useNavigate()
-  const { user: {
-    username,
-    isAdmin,
-    id
-  } } = useAppSelector(state => state.userReducer)
+    const navigate = useNavigate()
+    const form = useForm<ProfileFormValues>({
+        resolver: zodResolver(profileFormSchema),
+        mode: "onChange",
+    })
+    const { user: {
+        username,
+        isAdmin,
+        id
+    } } = useAppSelector(state => state.userReducer)
 
-  const [collectionData, setCollectionData] = useState({
-    title: '',
-    description: '',
-    topic: '',
-    items: [],
-    createdAt: new Date(),
-    image_url: '',
-    user: {
-      username: username,
-      isAdmin: isAdmin,
-      id: id
-    }
-  })
-
-  const [imageUpload, setImageUpload] = useState(null)
-
-
-  // const { fields, append } = useFieldArray({
-  //   name: "urls",
-  //   control: form.control,
-  // })
-
+    const [imageUpload, setImageUpload] = useState(null)
+    const [collectionData, setCollectionData] = useState<Collections>({
+        title: '',
+        description: '',
+        topic: '',
+        items: [],
+        createdAt: new Date(),
+        image_url: '',
+        extraFields: [],
+        user: {
+        username: username,
+        isAdmin: isAdmin,
+        _id: id
+        }
+    })
 
     //! upload when clicked Submit button
     const uploadImage = () => {
@@ -121,116 +105,118 @@ export function CreateCollectionForm() {
         }
     }
 
-  return (
-    <Form {...form}>
-      <form className="space-y-8">
-        <FormField
-          control={form.control}
-          name="title"
-          render={() => (
-            <FormItem>
-              <FormLabel>Title</FormLabel>
-              <FormControl>
-                <Input
-                    onChange={(e) => setCollectionData({ ...collectionData, 'title': e.target.value })}
-                    placeholder="Collection Name"
-                />
-              </FormControl>
-              <FormDescription>
-                This is public display name of your collection
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="topic"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Topic</FormLabel>
-              <Select
-                defaultValue={field.value}
-                onValueChange={(value: string) => {
-                    field.onChange
-                    setCollectionData({ ...collectionData, 'topic': value })
-                }}
-              >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select from predefined topics" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {TOPICS.map((topic) => (
-                    <SelectItem key={topic} value={topic}>{topic}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {/* <FormDescription>
-                You can manage verified email addresses in your{" "}
-                <Link href="/examples/forms">email settings</Link>.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={() => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea
-                    onChange={(e) => setCollectionData({ ...collectionData, 'description': e.target.value })}
-                    placeholder="Description of your collection. You can use markdown"
-                    className="resize-none"
-                />
-              </FormControl>
-              <FormDescription>
-                You can <span>@mention</span> other users and organizations to
-                link to them.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <div>
-          {/* {fields.map((field, index) => (
-            <FormField
-              control={form.control}
-              key={field.id}
-              name={`urls.${index}.value`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className={cn(index !== 0 && "sr-only")}>
-                    URLs
-                  </FormLabel>
-                  <FormDescription className={cn(index !== 0 && "sr-only")}>
-                    Add links to your website, blog, or social media profiles.
-                  </FormDescription>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))} */}
-          <input type="file" onChange={(event) => setImageUpload(event.target.files[0])} />
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="mt-2"
-            onClick={uploadImage}
-          >
-            Add Image
-          </Button>
-        </div>
-        <Button type="button" onClick={onSubmit}>Create Collection</Button>
-      </form>
-    </Form>
-  )
+    const options = useMemo(
+        () => ({
+            spellChecker: false,
+            maxHeight: '200px',
+            autofocus: true,
+            placeholder: 'Введите текст...',
+            status: false,
+            autosave: {
+                enabled: true,
+                delay: 1000,
+                uniqueId: collectionData.createdAt
+            },
+        }),
+        [],
+    );
+
+    const onChange = useCallback((value: string) => {
+        setCollectionData((prev) => ({...prev, description: value}));
+    }, []);
+
+    return (
+        <Form {...form}>
+            <form className="grid grid-cols-1 sm:grid-cols-2 gap-12">
+                <div className=''>
+                    <FormField
+                    control={form.control}
+                    name="title"
+                    render={() => (
+                        <FormItem>
+                        <FormLabel>Title</FormLabel>
+                        <FormControl>
+                            <Input
+                                onChange={(e) => {
+                                    setCollectionData({ ...collectionData, 'title': e.target.value })
+                                }}
+                                placeholder="Collection Name"
+                            />
+                        </FormControl>
+                        <FormDescription>
+                            This is public display name of your collection
+                        </FormDescription>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={form.control}
+                    name="topic"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Topic</FormLabel>
+                            <Select
+                                defaultValue={field.value}
+                                onValueChange={(value: string) => {
+                                    field.onChange
+                                    setCollectionData({ ...collectionData, 'topic': value })
+                                }}
+                            >
+                                <FormControl>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select from predefined topics" />
+                                </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                {TOPICS.map((topic) => (
+                                    <SelectItem key={topic} value={topic}>{topic}</SelectItem>
+                                ))}
+                                </SelectContent>
+                            </Select>
+                        </FormItem>
+                    )}
+                    />
+                    <FormField
+                    control={form.control}
+                    name="description"
+                    render={() => (
+                        <FormItem>
+                            <FormLabel>Description</FormLabel>
+                            <FormControl>
+                                {/* <Textarea
+                                    onChange={(e) => setCollectionData({ ...collectionData, 'description': e.target.value })}
+                                    placeholder="Description of your collection. You can use markdown"
+                                    className="resize-none"
+                                /> */}
+                                <SimpleMDE
+                                    className='overflow-auto h-48'
+                                    value={collectionData.description}
+                                    onChange={onChange}
+                                    options={options}
+                                />
+                            </FormControl>
+                        </FormItem>
+                    )}
+                    />
+                    <div>
+                        <input type="file" onChange={(event) => setImageUpload(event.target.files[0])} />
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            className="mt-2"
+                            onClick={uploadImage}
+                        >
+                            Add Image
+                        </Button>
+                    </div>
+                </div>
+                <div>
+                    <ExtraFields collectionData={collectionData} setCollectionData={setCollectionData} />
+                </div>
+                <Button type="button" onClick={onSubmit}>Create Collection</Button>
+            </form>
+        </Form>
+    )
 }

@@ -1,29 +1,17 @@
-import { useState } from 'react'
-
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger
-  } from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dropdown-menu'
 
 const LanguageSwitcher = () => {
-    const [selectedLanguage, setSelectedLanguage] = useState('English')
-
-    const handleClick = (language: string) => {
-        if (language === 'English') {
-            setSelectedLanguage('Russian')
-        } else {
-            setSelectedLanguage('English')
-        }
-    }
-
     return (
         <DropdownMenu modal={false}>
-            <DropdownMenuTrigger>{selectedLanguage}</DropdownMenuTrigger>
+            <DropdownMenuTrigger>English</DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => handleClick('English')}>English</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleClick('Russian')}>Russian</DropdownMenuItem>
+                <DropdownMenuItem>English</DropdownMenuItem>
+                <DropdownMenuItem disabled>Russian (soon)</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )
