@@ -32,16 +32,7 @@ const CollectionPage = () => {
         }
     }
 
-    const test = async () => {
-        try {
-            const test = await ItemService.search('testQuery')
-        } catch (e) {
-            console.log('>>>', e)
-        }
-    }
-
     useEffect(() => {
-        test()
         getCollection()
     }, [])
 
@@ -94,31 +85,31 @@ const CollectionPage = () => {
                     alt='collectionImage'
                 />
             </div>
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 border mt-8">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b">
+            <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400 border mt-8'>
+                <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b'>
                     <tr>
                         {isOwner && (
-                            <th scope="col" className="px-4 py-3">
+                            <th scope='col' className='px-4 py-3'>
                                 <input
-                                    className="cursor-pointer"
-                                    type="checkbox"
+                                    className='cursor-pointer'
+                                    type='checkbox'
                                     checked={ isSelectedAll }
                                     onChange={ handleSelectAll }
                                     disabled={!collection.items.length}
                                 />
                             </th>
                         )}
-                        <th scope="col" className="px-4 py-3">
+                        <th scope='col' className='px-4 py-3'>
                             Name
                         </th>
-                        <th scope="col" className="px-4 py-3 text-center">
+                        <th scope='col' className='px-4 py-3 text-center'>
                             Tags
                         </th>
-                        <th scope="col" className="px-4 py-3">
+                        <th scope='col' className='px-4 py-3'>
                             Last Update
                         </th>
                         {isOwner && (
-                            <th scope="col" className="px-4 py-3">
+                            <th scope='col' className='px-4 py-3'>
                                 Actions
                             </th>
                         )}
@@ -126,31 +117,30 @@ const CollectionPage = () => {
                 </thead>
                 <tbody>
                     {collection.items.length ? collection.items.map((item) => {
-                        console.log('>>>', item)
                         return (
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={item._id}>
+                            <tr className='bg-white border-b dark:bg-gray-800 dark:border-gray-700' key={item._id}>
                                 {isOwner && (
-                                    <td scope='row' className="px-4 py-3">
+                                    <td scope='row' className='px-4 py-3'>
                                         <input
-                                            className="cursor-pointer"
-                                            type="checkbox"
+                                            className='cursor-pointer'
+                                            type='checkbox'
                                             id={item._id}
                                             checked={ selectedItems.includes(item._id) }
                                             onChange={ handleCheckbox }
                                         />
                                     </td>
                                 )}
-                                <td className="px-4 py-3">
+                                <td className='px-4 py-3'>
                                     {item.name}
                                 </td>
-                                <td className="px-4 py-3 max-w-48">
+                                <td className='px-4 py-3 max-w-48'>
                                     {item.tags.map((tag, index) => (
                                         <Badge key={index} className='ml-1'>
                                             {tag}
                                         </Badge>
                                     ))}
                                 </td>
-                                <td className="px-4 py-3">
+                                <td className='px-4 py-3'>
                                     {formatDistance(
                                         item?.lastUpdate,
                                         new Date(),
@@ -158,7 +148,7 @@ const CollectionPage = () => {
                                     )}
                                 </td>
                                 {isOwner && item && (
-                                    <td className="px-4 py-3">
+                                    <td className='px-4 py-3'>
                                         <ItemDialog
                                             title='Edit'
                                             getCollection={getCollection}
@@ -179,7 +169,7 @@ const CollectionPage = () => {
                         )
                     }) : (
                             <tr className='text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
-                                <td colSpan={5} className="py-6 font-bold text-lg">
+                                <td colSpan={5} className='py-6 font-bold text-lg'>
                                     No Items in Collection
                                 </td>
                             </tr>

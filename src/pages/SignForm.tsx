@@ -1,11 +1,11 @@
-import { useState, ChangeEvent, KeyboardEvent } from "react"
-import { useNavigate } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { useState, ChangeEvent, KeyboardEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 import AuthService from '../services/AuthService'
-import { useAppDispatch } from "@/hooks/redux"
-import { saveUser } from "@/store/reducers/UserSlice"
+import { useAppDispatch } from '@/hooks/redux'
+import { saveUser } from '@/store/reducers/UserSlice'
 
 export default function SignForm() {
     const navigate = useNavigate()
@@ -82,22 +82,22 @@ export default function SignForm() {
     }
 
     return (
-        <div className="pt-12">
-            <div className="grid mx-auto space-y-6 sm:w-[400px] border px-10 pb-12 pt-6 rounded-xl bg-[#fafafa] dark:bg-gray-900 shadow-xl">
-                <h1 className="text-center text-2xl font-semibold tracking-tight">
+        <div className='pt-12'>
+            <div className='grid mx-auto space-y-6 sm:w-[400px] border px-10 pb-12 pt-6 rounded-xl bg-[#fafafa] dark:bg-gray-900 shadow-xl'>
+                <h1 className='text-center text-2xl font-semibold tracking-tight'>
                     {isRegister ? 'Create an account' : 'Login into account'}
                 </h1>
                 <form>
-                    <div className="grid gap-4">
-                        <div className="grid gap-2">
+                    <div className='grid gap-4'>
+                        <div className='grid gap-2'>
                             { isRegister && (
                                 <Input
-                                    id="email"
-                                    placeholder="name@example.com"
-                                    type="email"
-                                    autoCapitalize="none"
-                                    // autoComplete="email"
-                                    autoCorrect="off"
+                                    id='email'
+                                    placeholder='name@example.com'
+                                    type='email'
+                                    autoCapitalize='none'
+                                    // autoComplete='email'
+                                    autoCorrect='off'
 
                                     value={accountData.email}
                                     onChange={(event) => handleOnChange('email', event)}
@@ -107,12 +107,12 @@ export default function SignForm() {
                                 />
                             )}
                             <Input
-                                id="username"
-                                placeholder="Username"
-                                type="username"
-                                autoCapitalize="none"
-                                // autoComplete="username"
-                                autoCorrect="off"
+                                id='username'
+                                placeholder='Username'
+                                type='username'
+                                autoCapitalize='none'
+                                // autoComplete='username'
+                                autoCorrect='off'
 
                                 value={accountData.username}
                                 onChange={(event) => handleOnChange('username', event)}
@@ -121,11 +121,11 @@ export default function SignForm() {
                                 required
                             />
                             <Input
-                                id="password"
-                                placeholder="********"
-                                type="password"
-                                autoCapitalize="none"
-                                // autoComplete="password"
+                                id='password'
+                                placeholder='********'
+                                type='password'
+                                autoCapitalize='none'
+                                // autoComplete='password'
 
                                 value={accountData.password}
                                 onChange={(event) => handleOnChange('password', event)}
@@ -140,25 +140,25 @@ export default function SignForm() {
                         >
                             Sign {isRegister ? 'Up' : 'In'}
                         </Button>
-                        <p className="mt-2 flex cursor-pointer" onClick={changeSignForm}>
-                            { isRegister ? 'Already have an account?' : 'Don"t have an account yet?' }
+                        <p className='mt-2 flex cursor-pointer' onClick={changeSignForm}>
+                            { isRegister ? 'Already have an account?' : 'Don\'t have an account yet?' }
                             <p className='ml-1 underline text-primary'>
                                 Sign {isRegister ? 'up' : 'in'}
                             </p>
                         </p>
                     </div>
                 </form>
-                <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t" />
+                <div className='relative'>
+                    <div className='absolute inset-0 flex items-center'>
+                    <span className='w-full border-t' />
                     </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white dark:bg-gray-900 px-2 text-muted-foreground">
+                    <div className='relative flex justify-center text-xs uppercase'>
+                    <span className='bg-white dark:bg-gray-900 px-2 text-muted-foreground'>
                         Or continue with
                     </span>
                     </div>
                 </div>
-                <Button type="button" disabled>
+                <Button type='button' disabled>
                     Google (soon)
                 </Button>
             </div>

@@ -1,5 +1,5 @@
-import $api from "../http"
-import { FetchedCollections, ExtraFields } from "./CollectionService"
+import $api from '@/http'
+import { FetchedCollections, ExtraFields } from './CollectionService'
 
 export interface Item {
     name: string

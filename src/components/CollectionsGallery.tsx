@@ -44,7 +44,11 @@ const CollectionsGallery: FC<CollectionsGalleryProps> = ({collection}) => {
             </div>
             <div className='flex justify-between items-center'>
                 <div className='flex items-center space-x-4'>
-                    <img className='w-7 h-7 rounded-full' src='https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png' alt='Jese Leos avatar' />
+                    <img
+                        className='w-7 h-7 rounded-full'
+                        src={`https://source.boringavatars.com/bauhaus/30/${collection.user.username}`}
+                        alt='Random Avatar'
+                    />
                     <span className='text-sm font-medium dark:text-white'>
                         {collection.user.username}
                     </span>

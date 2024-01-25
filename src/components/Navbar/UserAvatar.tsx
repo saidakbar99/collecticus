@@ -1,6 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -41,13 +39,11 @@ export function UserAvatar() {
     return (
         <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
-                <Button variant='ghost' className='relative h-8 w-8 rounded-full'>
-                    <Avatar className='h-9 w-9'>
-                        <AvatarFallback>
-                            {username.slice(0,1).toUpperCase()}
-                        </AvatarFallback>
-                    </Avatar>
-                </Button>
+                <img
+                    className='w-8 h-8 rounded-full cursor-pointer'
+                    src={`https://source.boringavatars.com/bauhaus/30/${username}`}
+                    alt='Random Avatar'
+                />
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56' align='end'>
                 <DropdownMenuLabel className='font-normal'>

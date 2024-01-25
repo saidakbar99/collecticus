@@ -1,5 +1,5 @@
-import $api from "../http"
-import { FetchedItems } from "./ItemService"
+import $api from '@/http'
+import { FetchedItems } from './ItemService'
 
 export interface ExtraFields {
     fieldType: string
