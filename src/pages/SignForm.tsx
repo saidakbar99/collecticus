@@ -2,8 +2,8 @@ import { useState, ChangeEvent, KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Toaster } from "@/components/ui/toaster"
-import { useToast } from "@/components/ui/use-toast"
+import { Toaster } from "@/components/ui/sonner"
+import { toast } from "sonner"
 
 import AuthService from '../services/AuthService'
 import { useAppDispatch } from '@/hooks/redux'
@@ -12,7 +12,6 @@ import { saveUser } from '@/store/reducers/UserSlice'
 export default function SignForm() {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const { toast } = useToast()
 
     const [isRegister, setIsRegister] = useState(false)
     const [accountData, setAccountData] = useState({
@@ -42,8 +41,12 @@ export default function SignForm() {
             if (response.status === 200) {
                 navigate(`/`)
             }
-        } catch (e) {
-            console.error(e)
+        } catch (e: any) {
+            if (e.response.status === 400) {
+                toast('Username is already used')
+            } else if (e.response.status === 500) {
+                toast('Email is already used')
+            }
         }
     }
 
@@ -54,19 +57,12 @@ export default function SignForm() {
             const response = await AuthService.login(username, password)
             localStorage.setItem('token', response.data.accessToken)
             dispatch(saveUser(response.data.user))
-
-            switch (response.status) {
-                case 200:
-                    navigate('/')
-                    break
-                case 400:
-                    toast({title: 'This user is blocked'})
-                    break
-                default:
-                    toast({title: 'Wrong username/password'})
+        } catch (e: any) {
+            if (e.response.status === 400) {
+                toast('This user is blocked')
+            } else {
+                toast('Wrong username/password')
             }
-        } catch (e) {
-            console.error('>>>', e)
         }
     }
 
