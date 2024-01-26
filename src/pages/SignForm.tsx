@@ -2,8 +2,8 @@ import { useState, ChangeEvent, KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Toaster } from "@/components/ui/sonner"
-import { toast } from "sonner"
+import { Toaster } from '@/components/ui/sonner'
+import { toast } from 'sonner'
 
 import AuthService from '../services/AuthService'
 import { useAppDispatch } from '@/hooks/redux'
