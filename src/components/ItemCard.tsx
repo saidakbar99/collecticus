@@ -31,7 +31,11 @@ const ItemCard: FC<ItemCardProps> = ({ item }) => {
             <p className='mb-5 font-light text-gray-500 dark:text-gray-400'>Collection: {item.parentCollection.title}</p>
             <div className='flex justify-between items-center'>
                 <div className='flex items-center space-x-4'>
-                    <img className='w-7 h-7 rounded-full' src='https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png' alt='Jese Leos avatar' />
+                    <img
+                        className='w-7 h-7 rounded-full'
+                        src={`https://source.boringavatars.com/bauhaus/30/${item.parentCollection.user.username}`}
+                        alt='Random Avatar'
+                    />
                     <span className='font-medium dark:text-white'>
                         {item.parentCollection.user.username}
                     </span>
