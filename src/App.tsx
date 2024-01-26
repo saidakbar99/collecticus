@@ -4,10 +4,8 @@ import { ThemeProvider } from '@/components/ui/theme-provider'
 import MainLayout from '@/components/MainLayout'
 import PrivateRoute from '@/components/PrivateRoute'
 import AdminRoute from '@/components/AdminRoute'
-
 import CreateCollection from '@/components/CreateCollection'
 import MyCollections from '@/components/MyCollections'
-
 import CollectionPage from '@/pages/CollectionPage'
 import HomePage from '@/pages/HomePage'
 import SignForm from '@/pages/SignForm'

@@ -11,7 +11,7 @@ export default function SignForm() {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
-    const [isRegister, setIsRegister] = useState(false)
+    const [isRegister, setIsRegister] = useState(true)
     const [accountData, setAccountData] = useState({
         username: '',
         email: '',

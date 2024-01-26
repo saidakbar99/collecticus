@@ -72,9 +72,6 @@ export default function HomePage() {
                                 <ScrollBar orientation='horizontal' />
                             </ScrollArea>
                         </div>
-                        <div className='mt-8'>
-                        TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS TAGS 
-                        </div>
                     </div>
                 </div>
             </div>
